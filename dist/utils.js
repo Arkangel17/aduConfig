@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 `use strict`;
 // public edgeNailing = (obj, forceType, sheathing, thickness, fastener, spacing,dblSided) => {
 //     let res = (dblSided) ? obj[forceType][sheathing][thickness][fastener][spacing] : 
@@ -7,7 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //     console.log(res);
 //     return res
 // }  
-class Utils {
+export class Utils {
     // MISC FUNCTIONS 
     degrees(radians) {
         /**
@@ -97,5 +95,4 @@ class Utils {
         };
     }
 }
-exports.Utils = Utils;
-exports.default = Utils;
+export default Utils;

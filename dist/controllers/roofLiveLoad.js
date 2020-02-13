@@ -1,5 +1,4 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
 class RoofLiveLoad {
     constructor(areaTrib, rise) {
         this.areaTrib = areaTrib;
@@ -55,4 +54,4 @@ class RoofLiveLoad {
         };
     }
 }
-exports.default = RoofLiveLoad;
+export default RoofLiveLoad;

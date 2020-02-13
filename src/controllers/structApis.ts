@@ -1,6 +1,9 @@
+
 `use strict`
 
 import axios from 'axios';
+
+import apiKeys from '../apiKeys'
 
 class StructAPIs { 
     
@@ -9,16 +12,18 @@ class StructAPIs {
     public medeekApiURL: string = `http://design.medeek.com/resources/medeekapi.pl?`;
     public formValues: any = {};
     public results: any = {};
+    public googleApiKey = apiKeys['usgsSeisAPI']
 
 
     constructor(formValues: any){
         this.formValues = formValues;
+
     }
     
 
     public calc (): any {
 
-       let geo: any =  this.getLatLongFromAddress(this.geoCodeURL, this.formValues.address);
+       let geo: any =  this.getLatLongFromAddress(this.geoCodeURL, this.formValues.address, this.googleApiKey);
 
        let seis: any = this.usgsApiRequest(geo, this.formValues.riskCategory, this.formValues.siteClass, this.formValues.title);
 
@@ -37,7 +42,7 @@ class StructAPIs {
 
     }
 
-    public async getLatLongFromAddress(geoCodeURL: string, address: string) {
+    public async getLatLongFromAddress(geoCodeURL: string, address: string, googleApiKey: string) {
 
         let res: object;
         let latLongObj: object;
@@ -46,7 +51,7 @@ class StructAPIs {
             res = await axios.get(geoCodeURL, {
                 params: {
                     address,
-                    key: `AIzaSyAS1ppQZ0RbK3k5Zv121KdtG61DqY_Mrno`
+                    key: googleApiKey
                 }
             });
 

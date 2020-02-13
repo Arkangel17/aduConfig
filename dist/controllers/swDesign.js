@@ -1,13 +1,12 @@
 'use strict';
-Object.defineProperty(exports, "__esModule", { value: true });
-const aduConfigLibrary_1 = require("./aduConfigLibrary");
-class NdsShearWallCalc {
+import AduConfigCompLib from "./aduConfigLibrary";
+export class NdsShearWallCalc {
     constructor(inputs) {
         this.results = {};
         this.inputs = {};
         this.aduConfig = {};
         this.inputs = inputs;
-        this.aduConfig = new aduConfigLibrary_1.default();
+        this.aduConfig = new AduConfigCompLib();
     }
     calc() {
         const inputs = this.inputs;
@@ -243,5 +242,4 @@ class NdsShearWallCalc {
         return res;
     }
 }
-exports.NdsShearWallCalc = NdsShearWallCalc;
-exports.default = NdsShearWallCalc;
+export default NdsShearWallCalc;

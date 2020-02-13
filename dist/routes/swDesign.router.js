@@ -1,23 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const swDesign_1 = require("../controllers/swDesign");
-class SwDesignRouter {
+import { Router } from "express";
+import SwDesign from "../controllers/swDesign";
+export class SwDesignRouter {
     constructor() {
-        this.router = express_1.Router();
+        this.router = Router();
         this.init();
     }
     getResults(req, res, next) {
         const defaultInput = {};
         const inputs = (Object.keys(req.body).length === 0) ? defaultInput : req.body;
-        const process = new swDesign_1.default(inputs);
+        const process = new SwDesign(inputs);
         res.send({ results: process.calc });
     }
     init() {
         this.router.post('/swdesign', this.getResults);
     }
 }
-exports.SwDesignRouter = SwDesignRouter;
 const swDesign = new SwDesignRouter();
 swDesign.init();
-exports.default = swDesign.router;
+export default swDesign.router;

@@ -1,13 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const debug = require("debug");
-const http = require("http");
-const App_1 = require("./App");
+import * as debug from "debug";
+import * as http from "http";
+import App from "./App";
 debug("ts-express:server");
 const port = normalizePort(process.env.PORT || 8081);
-App_1.default.set("port", port);
+App.set("port", port);
 // creates server
-const server = http.createServer(App_1.default);
+const server = http.createServer(App);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);

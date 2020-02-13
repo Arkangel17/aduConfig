@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,23 +7,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 `use strict`;
-const axios_1 = require("axios");
+import axios from 'axios';
 class StructAPIs {
-    constructor(address, riskCategory, siteClass, title) {
+    constructor(formValues) {
         this.usgsURL = `https://earthquake.usgs.gov/ws/designmaps/asce7-10.json`;
         this.geoCodeURL = `https://maps.googleapis.com/maps/api/geocode/json?`;
         this.medeekApiURL = `http://design.medeek.com/resources/medeekapi.pl?`;
+        this.formValues = {};
         this.results = {};
-        this.address = address;
-        this.riskCategory = riskCategory;
-        this.siteClass = siteClass;
-        this.title = title;
+        this.formValues = formValues;
     }
     calc() {
-        let geo = this.getLatLongFromAddress(this.geoCodeURL, this.address);
-        let seis = this.usgsApiRequest(geo, this.riskCategory, this.siteClass, this.title);
+        let geo = this.getLatLongFromAddress(this.geoCodeURL, this.formValues.address);
+        let seis = this.usgsApiRequest(geo, this.formValues.riskCategory, this.formValues.siteClass, this.formValues.title);
         let snow = this.getMedeekWindSpeed(this.medeekApiURL, geo);
         let wind = this.getMedeekGrdSnowLoad(this.medeekApiURL, geo);
         this.results = {
@@ -40,7 +36,7 @@ class StructAPIs {
             let res;
             let latLongObj;
             try {
-                res = yield axios_1.default.get(geoCodeURL, {
+                res = yield axios.get(geoCodeURL, {
                     params: {
                         address,
                         key: `AIzaSyAS1ppQZ0RbK3k5Zv121KdtG61DqY_Mrno`
@@ -64,7 +60,7 @@ class StructAPIs {
             let res;
             try {
                 //need to figure out to implement asce7-16 into the usgsURL...
-                res = yield axios_1.default.get(this.usgsURL, {
+                res = yield axios.get(this.usgsURL, {
                     params: {
                         latitude: geo,
                         longitude: geo,
@@ -85,7 +81,7 @@ class StructAPIs {
         return __awaiter(this, void 0, void 0, function* () {
             let res;
             try {
-                res = yield axios_1.default.get(medeekApiURL, {
+                res = yield axios.get(medeekApiURL, {
                     params: {
                         lat: geo,
                         lng: geo,
@@ -105,7 +101,7 @@ class StructAPIs {
         return __awaiter(this, void 0, void 0, function* () {
             let res;
             try {
-                res = yield axios_1.default.get(medeekApiURL, {
+                res = yield axios.get(medeekApiURL, {
                     params: {
                         lat: geo,
                         lng: geo,
@@ -122,4 +118,4 @@ class StructAPIs {
         });
     }
 }
-exports.default = StructAPIs;
+export default StructAPIs;

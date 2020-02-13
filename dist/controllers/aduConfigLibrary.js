@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 // shear-wall edge-nailing matrix PER AWS NDS TABLE 4.3.A
-class aduConfigLibrary {
+export class aduConfigLibrary {
     //need to add object matrix of shearWallCaps..? 
     constructor() { }
     ;
@@ -154,5 +152,4 @@ class aduConfigLibrary {
         };
     }
 }
-exports.aduConfigLibrary = aduConfigLibrary;
-exports.default = aduConfigLibrary;
+export default aduConfigLibrary;

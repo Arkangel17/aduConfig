@@ -1,11 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const bodyParser = require("body-parser");
-const express = require("express");
-const morgan = require("morgan");
-const path = require("path");
-const swDesign_router_1 = require("./routes/swDesign.router");
-const roofLiveLoad_router_1 = require("./routes/roofLiveLoad.router");
+import * as bodyParser from "body-parser";
+import * as express from "express";
+import * as morgan from "morgan";
+import * as path from "path";
+import SwDesignRouter from "./routes/swDesign.router";
+import RoofLiveLoadRouter from "./routes/roofLiveLoad.router";
 class App {
     constructor() {
         this.express = express();
@@ -36,8 +34,8 @@ class App {
         });
         this.express.use('/', router);
         //Api routes....
-        this.express.use('/swDesign', swDesign_router_1.default);
-        this.express.use('/roofLiveLoad', roofLiveLoad_router_1.default);
+        this.express.use('/swDesign', SwDesignRouter);
+        this.express.use('/roofLiveLoad', RoofLiveLoadRouter);
     }
 }
-exports.default = new App().express;
+export default new App().express;
