@@ -1,0 +1,43 @@
+{
+  "name": "aduconfig",
+  "version": "1.0.0",
+  "description": "ADU Configurator",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build-ts && node dist/index.js",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "gulp": "gulp",
+    "build-ts": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arkangel17/aduConfig.git"
+  },
+  "author": "kjw",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arkangel17/aduConfig/issues"
+  },
+  "homepage": "https://github.com/Arkangel17/aduConfig#readme",
+  "dependencies": {
+    "@types/google-maps": "^3.2.1",
+    "@types/jquery": "^3.3.32",
+    "axios": "^0.19.0",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.2",
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.1"
+  },
+  "devDependencies": {
+    "ts-loader": "^6.1.0",
+    "typescript": "^3.6.3",
+    "webpack-stream": "^5.2.1"
+  }
+}

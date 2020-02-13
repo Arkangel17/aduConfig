@@ -1,0 +1,43 @@
+body {
+    font: 14px/17px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 14px;
+    line-height: 17px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+.designCrit {
+    width: 400px;
+    height: 220px;
+    padding-top: 20px;
+    padding-left: 10px;
+    background-color: rgb(93, 230, 240);    
+}
+
+/* select {
+    width: 40%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    
+} */
+
+.container{
+    padding-top: 50px;
+}
+
+.send{
+    background-color: #456981;
+    color: white;
+}   
+
+3

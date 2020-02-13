@@ -1,0 +1,104 @@
+body {
+    font: 14px/17px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-size: 14px;
+    line-height: 17px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  
+  .bold{
+    font-weight: bold;
+  }
+  
+  .divider{
+    padding: 5px;
+    background-color: rgb(93, 230, 240);
+  }
+  
+  .address  {
+    width: 350px;
+  
+  }
+  
+  .designCrit {
+    width: 400px;
+    height: 220px;
+    padding-top: 20px;
+    padding-left: 10px;
+    background-color: rgb(93, 230, 240);
+  }
+  
+  #inputbox{
+    width: 200px;
+  }
+  
+  #submit{
+    padding-top: -30px;
+  }
+  
+  button {
+    border: none;
+    background-color:  rgb(93, 230, 240);
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 40px;
+  }
+  
+  
+  .printFile{
+    padding-top: 20px;
+  }
+  
+  
+  
+  .logo{
+    width: 40%;
+    height: auto;
+  }
+  
+  #chartContainer{
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 80vw;
+  }
+  
+  #lineChart{
+    width: 1000px;
+    height: auto;
+  }
+  
+  .mapContainer{
+    padding-top: 20px; 
+  }
+  
+  #map{
+    width: auto;
+    height: 300px;
+    border: solid;
+    border-color:  rgb(93, 230, 240);
+  }
+  
+  #hintBox{
+    display: none;
+    position: absolute;
+    width: 150px;
+    height: 25px;
+    background-color: lightgray;  
+  }
+  
+  #inputBoxContainer{
+    font-weight: bold;
+    font-size: 10px;
+  
+  }

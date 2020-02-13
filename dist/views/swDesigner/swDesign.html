@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="swdesign.css" type="text/css" />
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script> -->
+
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
+      <link rel = "stylesheet"
+         href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel = "stylesheet"
+         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <script
+         src="http://code.jquery.com/jquery-3.4.0.min.js"
+         integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+         crossorigin="anonymous"></script>            
+      <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+      </script> 
+      
+    <style type="text/css">
+    nav {
+        background-color: #456981;
+        height: 100px;
+    }
+    #output {
+        height: 800px;
+        overflow: scroll;
+        background-color: #456981;
+    }
+    .icon{
+        background-color: #456981;
+    }
+    </style>
+   
+  
+    <nav>
+        <div class="nav-wrapper">
+            <!-- <a href="https://imgur.com/XPFXGMF"><img src="https://i.imgur.com/XPFXGMF.jpg" title="source: imgur.com" /></a> -->
+            <a href="#" class="brand-logo right icon"><img src="https://i.imgur.com/XPFXGMF.jpg" width="100" height="100" alt="" class="brand-logo right icon"></a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <title>aduConfig</title>
+</head>
+<body>
+
+    <div class="container">
+            <form class="row">
+                <div class="input-field col s6">
+                        <select name="sheathing" id="sheathing">
+                            <option value="" disabled selected></option>
+                            <option value="STRUCT1">STRUCT1</option>
+                            <option value="SHEATHING">OSB</option>
+                            <option value="OSB">PLYWOOD SIDING</option>
+                        </select>
+                        <label for="SHEATHING TYPE">SHEATHING TYPE</label>
+                </div>
+
+                <div class="input-field col s6">
+                        <select name="dblSided" id="dblSided">
+                            <option value="" disabled selected></option>
+                            <option value="TRUE">TRUE</option>
+                            <option value="FALSE">FALSE</option>
+                        </select>
+                        <label>DOUBLE SIDED SW</label>
+                </div>
+
+                <div class="input-field col s6">
+                        <select name="sheathingThickness" id="sheathingThickness">
+                            <option value="" disabled selected></option>
+                            <option value="5/16">"5/16"</option>
+                            <option value="3/8">"3/8"</option>
+                            <option value="7/16">"7/16"</option>
+                            <option value="15/32">"15/32"</option>
+                            <option value="19/32">"19/32"</option>
+                        </select>
+                        <label>SHEATHING THICKNESS</label>
+                </div>
+
+                <div class="input-field col s6">
+                        <select name="nailingType" id="nailingType">
+                            <option value="" disabled selected></option>
+                            <option value="6d">"6d"</option>
+                            <option value="8d">"8d"</option>
+                            <option value="10d">"10d"</option>
+                        </select>
+                        <label>NAILING TYPE</label>
+                </div>
+                
+                <div class="input-field col s6">
+                        <select name="edgeNailing" id="edgeNailing">
+                            <option value="" disabled selected></option>
+                            <option value=6>6</option>
+                            <option value=4>4</option>
+                            <option value=3>3</option>
+                            <option value=2>2</option>
+                        </select>
+                        <label>EDGE NAILING</label>
+                </div>
+                <div class="row">
+                        <div class="col s6 offset-s6" style="text-align: center">
+                          <button id= "send" class="send">SEND
+                            <i class="material-icons right">send</i>
+                          </button>
+                        </div>
+                </div>
+
+    </div>
+
+    
+<script>
+// function checkForm(indexer){
+//     let formValues = {};
+
+//     $('.form').serializeArray().map((item,index)=>{
+//         formValues[item.name] = item.value;
+//         console.log('formValues',formValues);
+//     });
+// }
+
+$(document).ready(()=>{
+
+    let select = $('select');
+    select.formSelect();
+    
+
+
+    // let formValues = {};
+
+    // $('form').serializeArray().map((item)=>{
+        
+    //     formValues[item.name] = item.value;
+    // });
+
+    // console.log('formValues', formValues)
+
+    $('form .send').bind('click', function (event) {
+    event.preventDefault()
+
+   let swDesignInput = $('form').serializeArray();
+
+   console.log('swDesignInput', swDesignInput)
+})
+  });
+
+
+
+
+</script>
+</body>
+</html>

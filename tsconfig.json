@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "outDir": "dist",
+    "noImplicitAny": false,
+    "types": [
+      "google-maps",
+      "node",
+      "jquery"
+    ]
+  },
+  "exclude": ["node_modules"],
+  "include": [
+    "src/**/*.ts",
+    "**/*.d.ts"
+  ],
+  "compileOnSave": true
+}
