@@ -1,23 +1,27 @@
-import { Router } from "express";
-import RoofLiveLoad from "../controllers/roofLiveLoad";
-export class roofLiveLoadRouter {
-    constructor() {
-        this.router = Router();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var roofLiveLoad_1 = require("../controllers/roofLiveLoad");
+var roofLiveLoadRouter = /** @class */ (function () {
+    function roofLiveLoadRouter() {
+        this.router = express_1.Router();
         this.init();
     }
-    getResults(req, res, next) {
-        const defaults = {
+    roofLiveLoadRouter.prototype.getResults = function (req, res, next) {
+        var defaults = {
             areaTrib: 10,
             rise: 5
         };
-        const inputs = (Object.keys(req.body).length === 0) ? defaults : req.body;
-        const process = new RoofLiveLoad(defaults.areaTrib, defaults.rise);
+        var inputs = (Object.keys(req.body).length === 0) ? defaults : req.body;
+        var process = new roofLiveLoad_1.default(defaults.areaTrib, defaults.rise);
         res.send({ results: process.calc });
-    }
-    init() {
+    };
+    roofLiveLoadRouter.prototype.init = function () {
         this.router.post('/liveload', this.getResults);
-    }
-}
-const roofLiveLoad = new roofLiveLoadRouter();
+    };
+    return roofLiveLoadRouter;
+}());
+exports.roofLiveLoadRouter = roofLiveLoadRouter;
+var roofLiveLoad = new roofLiveLoadRouter();
 roofLiveLoad.init();
-export default roofLiveLoad.router;
+exports.default = roofLiveLoad.router;

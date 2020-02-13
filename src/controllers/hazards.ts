@@ -1,21 +1,27 @@
 'use strict'
 
 import StructAPIs from "./structApis";
+import GoogleAPIs from "./googleApis";
 
 class Hazards{
 
     public structApis: any = {};
-    public formValues: any = {}
+    public formValues: any = {};
+    public placesAPI = GoogleAPIs['placesAPI']
 
-    constructor(  ) {
+    constructor() {
 
         this.formValues = (item) => {
-            let formValues = {};      
+
+            let formValues = {};  
+
             $('form').serializeArray().map(item)
             formValues[item.name] = item.value;
 
             this.structApis = new StructAPIs(formValues);
+            
         }
+
     }
 
 
@@ -26,6 +32,8 @@ class Hazards{
         const winData = hazards.wind
         const snowData = hazards.snow
         const otherInfo = this.formValues.otherInfo
+
+        this.placesAPI()
 
         return this.renderResult(seisData, winData, snowData, otherInfo)
 
@@ -128,4 +136,4 @@ class Hazards{
     }
 }
 
-export default Hazards
+export default Hazards;

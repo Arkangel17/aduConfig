@@ -1,20 +1,24 @@
-import { Router } from "express";
-import SwDesign from "../controllers/swDesign";
-export class SwDesignRouter {
-    constructor() {
-        this.router = Router();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var swDesign_1 = require("../controllers/swDesign");
+var SwDesignRouter = /** @class */ (function () {
+    function SwDesignRouter() {
+        this.router = express_1.Router();
         this.init();
     }
-    getResults(req, res, next) {
-        const defaultInput = {};
-        const inputs = (Object.keys(req.body).length === 0) ? defaultInput : req.body;
-        const process = new SwDesign(inputs);
+    SwDesignRouter.prototype.getResults = function (req, res, next) {
+        var defaultInput = {};
+        var inputs = (Object.keys(req.body).length === 0) ? defaultInput : req.body;
+        var process = new swDesign_1.default(inputs);
         res.send({ results: process.calc });
-    }
-    init() {
+    };
+    SwDesignRouter.prototype.init = function () {
         this.router.post('/swdesign', this.getResults);
-    }
-}
-const swDesign = new SwDesignRouter();
-swDesign.init();
-export default swDesign.router;
+    };
+    return SwDesignRouter;
+}());
+exports.SwDesignRouter = SwDesignRouter;
+var swDesignRouter = new SwDesignRouter();
+swDesignRouter.init();
+exports.default = swDesignRouter.router;

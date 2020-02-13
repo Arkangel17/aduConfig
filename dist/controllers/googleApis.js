@@ -1,33 +1,38 @@
 'use strict';
-import { google } from "google-maps";
-class GoogleAPIs {
-    placesAPI() {
-        let input = document.getElementById('autocomplete');
-        return new google.maps.places.Autocomplete(input);
+Object.defineProperty(exports, "__esModule", { value: true });
+var google_maps_1 = require("google-maps");
+var GoogleAPIs = /** @class */ (function () {
+    function GoogleAPIs() {
     }
-    initMap(query) {
-        let location = {
+    GoogleAPIs.prototype.placesAPI = function () {
+        var input = document.getElementById('autocomplete');
+        return new google_maps_1.google.maps.places.Autocomplete(input);
+    };
+    GoogleAPIs.prototype.initMap = function (query) {
+        var location = {
             lat: query.lat,
             lng: query.lng
         };
-        let map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google_maps_1.google.maps.Map(document.getElementById('map'), {
             center: location,
             zoom: 17
         });
-        let imageURL = 'https://i.imgur.com/kUG7GZa.png';
+        var imageURL = 'https://i.imgur.com/kUG7GZa.png';
         // let image = new google.maps.MarkerImage(imageURL,
         //     new google.maps.Size(20, 20));
-        let image = {
+        var image = {
             "url": imageURL,
-            "scaledSize": new google.maps.Size(30, 30),
-            "origin": new google.maps.Point(0, 0),
-            "anchor": new google.maps.Point(0, 0)
+            "scaledSize": new google_maps_1.google.maps.Size(30, 30),
+            "origin": new google_maps_1.google.maps.Point(0, 0),
+            "anchor": new google_maps_1.google.maps.Point(0, 0)
         };
-        let frogPin = new google.maps.Marker({
+        var frogPin = new google_maps_1.google.maps.Marker({
             position: location,
-            map,
+            map: map,
             icon: image,
             title: 'hello'
         });
-    }
-}
+    };
+    return GoogleAPIs;
+}());
+exports.default = GoogleAPIs;

@@ -1,77 +1,78 @@
 'use strict';
-import AduConfigCompLib from "./aduConfigLibrary";
-export class NdsShearWallCalc {
-    constructor(inputs) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var aduConfigLibrary_1 = require("./aduConfigLibrary");
+var NdsShearWallCalc = /** @class */ (function () {
+    function NdsShearWallCalc(inputs) {
         this.results = {};
         this.inputs = {};
         this.aduConfig = {};
         this.inputs = inputs;
-        this.aduConfig = new AduConfigCompLib();
+        this.aduConfig = new aduConfigLibrary_1.default();
     }
-    calc() {
-        const inputs = this.inputs;
-        const aduConfig = this.aduConfig;
-        let res;
-        let summaryFlex = inputs.lfd.summaryFlex;
-        let totalSwLensCfaXPerpSeis = this.getTotalSwLen(inputs.UXWallSkus.y, summaryFlex.seisFlexWallLenY);
-        let totalSwLensCfaXPerpWind = this.getTotalSwLen(inputs.UXWallSkus.y, summaryFlex.seisFlexWallLenY);
-        let totalSwLensCfaYPerpSeis = this.getTotalSwLen(inputs.UXWallSkus.x, summaryFlex.seisFlexWallLenX);
-        let totalSwLensCfaYPerpWind = this.getTotalSwLen(inputs.UXWallSkus.x, summaryFlex.windFlexWallLenX);
-        let getUnitShearCfaXPerpSeis = this.getUnitShear(totalSwLensCfaXPerpSeis);
-        let getUnitShearCfaXPerpWind = this.getUnitShear(totalSwLensCfaXPerpWind);
-        let getUnitShearCfaYPerpSeis = this.getUnitShear(totalSwLensCfaYPerpSeis);
-        let getUnitShearCfaYPerpWind = this.getUnitShear(totalSwLensCfaYPerpWind);
-        let getCfaSwTypeXPerpSeis = this.getSwConfig(getUnitShearCfaXPerpSeis, aduConfig.shearWallCaps);
-        let getCfaSwTypeXPerpWind = this.getSwConfig(getUnitShearCfaXPerpWind, aduConfig.shearWallCaps);
-        let getCfaSwTypeYPerpSeis = this.getSwConfig(getUnitShearCfaYPerpSeis, aduConfig.shearWallCaps);
-        let getCfaSwTypeYPerpWind = this.getSwConfig(getUnitShearCfaYPerpWind, aduConfig.shearWallCaps);
-        let getDeflUnitShearPlfXPerpSeis = this.wdSwStiffness(getCfaSwTypeXPerpSeis, inputs);
-        let getDeflUnitShearPlfXPerpWind = this.wdSwStiffness(getCfaSwTypeXPerpWind, inputs);
-        let getDeflUnitShearPlfYPerpSeis = this.wdSwStiffness(getCfaSwTypeYPerpSeis, inputs);
-        let getDeflUnitShearPlfYPerpWind = this.wdSwStiffness(getCfaSwTypeYPerpWind, inputs);
-        let strDeflSwConfigXPerpSeis = this.getSwConfig(getDeflUnitShearPlfXPerpSeis, aduConfig.shearWallCaps);
-        let strDeflSwConfigXPerpWind = this.getSwConfig(getDeflUnitShearPlfXPerpWind, aduConfig.shearWallCaps);
-        let strDeflSwConfigYPerpSeis = this.getSwConfig(getDeflUnitShearPlfYPerpSeis, aduConfig.shearWallCaps);
-        let strDeflSwConfigYPerpWind = this.getSwConfig(getDeflUnitShearPlfYPerpWind, aduConfig.shearWallCaps);
-        let swTypeCntrlYPerpSeis = this.getSwTypeCntrl(strDeflSwConfigYPerpSeis);
-        let swTypeCntrlYPerpWind = this.getSwTypeCntrl(strDeflSwConfigYPerpWind);
-        let swTypeCntrlXPerpSeis = this.getSwTypeCntrl(strDeflSwConfigXPerpSeis);
-        let swTypeCntrlXPerpWind = this.getSwTypeCntrl(strDeflSwConfigXPerpWind);
-        let finalSwConfigXPerp = this.getFinalSwConfig(swTypeCntrlXPerpSeis, swTypeCntrlXPerpWind);
-        let finalSwConfigYPerp = this.getFinalSwConfig(swTypeCntrlYPerpSeis, swTypeCntrlYPerpWind);
-        const yShearWalls = this.getHduConfig(finalSwConfigXPerp, aduConfig.hduCaps);
-        const xShearWalls = this.getHduConfig(finalSwConfigYPerp, aduConfig.hduCaps);
+    NdsShearWallCalc.prototype.calc = function () {
+        var inputs = this.inputs;
+        var aduConfig = this.aduConfig;
+        var res;
+        var summaryFlex = inputs.lfd.summaryFlex;
+        var totalSwLensCfaXPerpSeis = this.getTotalSwLen(inputs.UXWallSkus.y, summaryFlex.seisFlexWallLenY);
+        var totalSwLensCfaXPerpWind = this.getTotalSwLen(inputs.UXWallSkus.y, summaryFlex.seisFlexWallLenY);
+        var totalSwLensCfaYPerpSeis = this.getTotalSwLen(inputs.UXWallSkus.x, summaryFlex.seisFlexWallLenX);
+        var totalSwLensCfaYPerpWind = this.getTotalSwLen(inputs.UXWallSkus.x, summaryFlex.windFlexWallLenX);
+        var getUnitShearCfaXPerpSeis = this.getUnitShear(totalSwLensCfaXPerpSeis);
+        var getUnitShearCfaXPerpWind = this.getUnitShear(totalSwLensCfaXPerpWind);
+        var getUnitShearCfaYPerpSeis = this.getUnitShear(totalSwLensCfaYPerpSeis);
+        var getUnitShearCfaYPerpWind = this.getUnitShear(totalSwLensCfaYPerpWind);
+        var getCfaSwTypeXPerpSeis = this.getSwConfig(getUnitShearCfaXPerpSeis, aduConfig.shearWallCaps);
+        var getCfaSwTypeXPerpWind = this.getSwConfig(getUnitShearCfaXPerpWind, aduConfig.shearWallCaps);
+        var getCfaSwTypeYPerpSeis = this.getSwConfig(getUnitShearCfaYPerpSeis, aduConfig.shearWallCaps);
+        var getCfaSwTypeYPerpWind = this.getSwConfig(getUnitShearCfaYPerpWind, aduConfig.shearWallCaps);
+        var getDeflUnitShearPlfXPerpSeis = this.wdSwStiffness(getCfaSwTypeXPerpSeis, inputs);
+        var getDeflUnitShearPlfXPerpWind = this.wdSwStiffness(getCfaSwTypeXPerpWind, inputs);
+        var getDeflUnitShearPlfYPerpSeis = this.wdSwStiffness(getCfaSwTypeYPerpSeis, inputs);
+        var getDeflUnitShearPlfYPerpWind = this.wdSwStiffness(getCfaSwTypeYPerpWind, inputs);
+        var strDeflSwConfigXPerpSeis = this.getSwConfig(getDeflUnitShearPlfXPerpSeis, aduConfig.shearWallCaps);
+        var strDeflSwConfigXPerpWind = this.getSwConfig(getDeflUnitShearPlfXPerpWind, aduConfig.shearWallCaps);
+        var strDeflSwConfigYPerpSeis = this.getSwConfig(getDeflUnitShearPlfYPerpSeis, aduConfig.shearWallCaps);
+        var strDeflSwConfigYPerpWind = this.getSwConfig(getDeflUnitShearPlfYPerpWind, aduConfig.shearWallCaps);
+        var swTypeCntrlYPerpSeis = this.getSwTypeCntrl(strDeflSwConfigYPerpSeis);
+        var swTypeCntrlYPerpWind = this.getSwTypeCntrl(strDeflSwConfigYPerpWind);
+        var swTypeCntrlXPerpSeis = this.getSwTypeCntrl(strDeflSwConfigXPerpSeis);
+        var swTypeCntrlXPerpWind = this.getSwTypeCntrl(strDeflSwConfigXPerpWind);
+        var finalSwConfigXPerp = this.getFinalSwConfig(swTypeCntrlXPerpSeis, swTypeCntrlXPerpWind);
+        var finalSwConfigYPerp = this.getFinalSwConfig(swTypeCntrlYPerpSeis, swTypeCntrlYPerpWind);
+        var yShearWalls = this.getHduConfig(finalSwConfigXPerp, aduConfig.hduCaps);
+        var xShearWalls = this.getHduConfig(finalSwConfigYPerp, aduConfig.hduCaps);
         res = {
-            yShearWalls,
+            yShearWalls: yShearWalls,
             yShearWallsCFA: this.cfaShearWallResults(yShearWalls),
-            xShearWalls,
+            xShearWalls: xShearWalls,
             xShearWallsCFA: this.cfaShearWallResults(xShearWalls),
         };
         return res;
-    }
-    getTotalSwLen(arr, arr2) {
-        let swLens = {};
-        let totalForce;
-        let forceType;
-        let newArr = arr.map((item) => {
-            let length = (item.xLength) ? item.xLength : item.yLength;
+    };
+    NdsShearWallCalc.prototype.getTotalSwLen = function (arr, arr2) {
+        var swLens = {};
+        var totalForce;
+        var forceType;
+        var newArr = arr.map(function (item) {
+            var length = (item.xLength) ? item.xLength : item.yLength;
             //per NDS 4.3.6.4.1.1 perWallCo should be applied to sw length
             //per NDS 4.3.4.2 aspectRatioFtr should be applied to nom. SW capcty
-            let lengthEff = length * item.perfWallCo * item.aspectRatioFtr;
+            var lengthEff = length * item.perfWallCo * item.aspectRatioFtr;
             swLens[item.coord] = swLens[item.coord] + lengthEff || lengthEff;
-            let newItem = {};
+            var newItem = {};
             Object.assign(newItem, item);
             newItem['lengthEff'] = lengthEff;
             return newItem;
         });
-        const rest = newArr.map((item) => {
-            for (let i = 0; i < arr2.length; i++) {
+        var rest = newArr.map(function (item) {
+            for (var i = 0; i < arr2.length; i++) {
                 if (arr2[i].coord == item.coord) {
                     totalForce = arr2[i].force;
                     forceType = arr2[i].forceType;
                 }
             }
-            let newItem = {};
+            var newItem = {};
             Object.assign(newItem, item);
             newItem['totalSwLen'] = swLens[item.coord];
             newItem['totalForce'] = totalForce;
@@ -80,50 +81,50 @@ export class NdsShearWallCalc {
         });
         // console.log('rest', rest)
         return rest;
-    }
-    getUnitShear(arr) {
-        let forceRatio;
-        let swForce;
-        let unitShearPlf;
-        arr.map((item) => {
+    };
+    NdsShearWallCalc.prototype.getUnitShear = function (arr) {
+        var forceRatio;
+        var swForce;
+        var unitShearPlf;
+        arr.map(function (item) {
             forceRatio = item.lengthEff / item.totalSwLen;
             swForce = item.totalForce * forceRatio;
             unitShearPlf = swForce / item.lengthEff;
             Object.assign(item, {
-                forceRatio,
-                swForce,
-                unitShearPlf
+                forceRatio: forceRatio,
+                swForce: swForce,
+                unitShearPlf: unitShearPlf
             });
         });
         return arr;
-    }
-    getSwConfig(arr, obj) {
-        arr.map((item) => {
-            let unitShearStr;
-            let unitShearDefl;
-            let strCfaSwConfig;
-            let deflCfaSwConfig;
+    };
+    NdsShearWallCalc.prototype.getSwConfig = function (arr, obj) {
+        arr.map(function (item) {
+            var unitShearStr;
+            var unitShearDefl;
+            var strCfaSwConfig;
+            var deflCfaSwConfig;
             if (item.forceType == 'wind') {
-                for (let key in obj['wind']) {
+                for (var key in obj['wind']) {
                     if (item.unitShearPlf < key) {
                         unitShearStr = key;
                         break;
                     }
                 }
-                for (let key in obj['wind']) {
+                for (var key in obj['wind']) {
                     if (item.resultGa == obj['wind'][key]['stiffnessGa']) {
                         unitShearDefl = key;
                     }
                 }
             }
             else {
-                for (let key in obj['eq']) {
+                for (var key in obj['eq']) {
                     if (item.unitShearPlf < key) {
                         unitShearStr = key;
                         break;
                     }
                 }
-                for (let key in obj['eq']) {
+                for (var key in obj['eq']) {
                     if (item.resultGa == obj['eq'][key]['stiffnessGa']) {
                         unitShearDefl = key;
                         break;
@@ -133,35 +134,35 @@ export class NdsShearWallCalc {
             strCfaSwConfig = obj[item.forceType][unitShearStr];
             deflCfaSwConfig = obj[item.forceType][unitShearDefl];
             Object.assign(item, {
-                unitShearDefl,
-                strCfaSwConfig,
-                deflCfaSwConfig
+                unitShearDefl: unitShearDefl,
+                strCfaSwConfig: strCfaSwConfig,
+                deflCfaSwConfig: deflCfaSwConfig
             });
         });
         return arr;
-    }
-    wdSwStiffness(arr, inputs) {
-        let hdPostDeflConst = {
+    };
+    NdsShearWallCalc.prototype.wdSwStiffness = function (arr, inputs) {
+        var hdPostDeflConst = {
             elastModulus: 1600000,
             Area: 30.25,
         };
-        let hdu14CapPlbs = 14445;
-        let deltaAnchor = 0.182;
-        let KHDU = deltaAnchor / hdu14CapPlbs;
-        let stiffnessGaArr = [16, 20, 22, 28, 40, 44, 56];
-        let unitShear;
-        let lrfdElastDrift;
-        let formula;
-        let resultGa;
-        let hduForce;
-        let deflBending;
-        let deflShear;
-        let deflAnchorSlip;
-        const zPow = 8 * Math.pow(inputs.avgHt, 3);
+        var hdu14CapPlbs = 14445;
+        var deltaAnchor = 0.182;
+        var KHDU = deltaAnchor / hdu14CapPlbs;
+        var stiffnessGaArr = [16, 20, 22, 28, 40, 44, 56];
+        var unitShear;
+        var lrfdElastDrift;
+        var formula;
+        var resultGa;
+        var hduForce;
+        var deflBending;
+        var deflShear;
+        var deflAnchorSlip;
+        var zPow = 8 * Math.pow(inputs.avgHt, 3);
         // const khuTimes = KHDU * Math.pow(inputs.avgHt, 2);
-        const eaTimes = hdPostDeflConst.elastModulus * hdPostDeflConst.Area;
-        arr.map((item) => {
-            let swLenDefl = item.lengthEff / item.aspectRatioFtr;
+        var eaTimes = hdPostDeflConst.elastModulus * hdPostDeflConst.Area;
+        arr.map(function (item) {
+            var swLenDefl = item.lengthEff / item.aspectRatioFtr;
             if (item.forceType == "wind") {
                 lrfdElastDrift = (inputs.avgHt * inputs.allWindDriftFtr * 12);
                 unitShear = (item.unitShearPlf / 0.6) * inputs.windDriftReductFtr * item.aspectRatioFtr;
@@ -171,7 +172,7 @@ export class NdsShearWallCalc {
                 unitShear = (item.unitShearPlf / 0.7) * item.aspectRatioFtr;
             }
             hduForce = unitShear * inputs.avgHt;
-            for (let i = 0; i < stiffnessGaArr.length; i++) {
+            for (var i = 0; i < stiffnessGaArr.length; i++) {
                 deflBending = (zPow * unitShear) / (eaTimes * swLenDefl);
                 deflShear = (unitShear * inputs.avgHt) / (1000 * stiffnessGaArr[i]);
                 deflAnchorSlip = (inputs.avgHt * (KHDU * hduForce)) / swLenDefl;
@@ -184,26 +185,26 @@ export class NdsShearWallCalc {
             }
             console.log('resultGa', resultGa);
             Object.assign(item, {
-                resultGa,
-                hduForce
+                resultGa: resultGa,
+                hduForce: hduForce
             });
         });
         return arr;
-    }
+    };
     ;
-    getSwTypeCntrl(arr) {
-        arr.map((item) => {
-            let swTypeCntrl = (item.strCfaSwConfig.value > item.deflCfaSwConfig.value)
+    NdsShearWallCalc.prototype.getSwTypeCntrl = function (arr) {
+        arr.map(function (item) {
+            var swTypeCntrl = (item.strCfaSwConfig.value > item.deflCfaSwConfig.value)
                 ? item.strCfaSwConfig : item.deflCfaSwConfig;
             Object.assign(item, {
-                swTypeCntrl
+                swTypeCntrl: swTypeCntrl
             });
         });
         return arr;
-    }
-    getFinalSwConfig(arr, arr1) {
-        let resArr = [];
-        arr.map((item, index) => {
+    };
+    NdsShearWallCalc.prototype.getFinalSwConfig = function (arr, arr1) {
+        var resArr = [];
+        arr.map(function (item, index) {
             if (item.swTypeCntrl.value > arr1[index].swTypeCntrl.value) {
                 resArr.push(item);
             }
@@ -212,12 +213,12 @@ export class NdsShearWallCalc {
             }
         });
         return resArr;
-    }
-    getHduConfig(arr, obj) {
-        let hdu;
-        arr.map((item) => {
-            let hduCapcity;
-            let hduConfig;
+    };
+    NdsShearWallCalc.prototype.getHduConfig = function (arr, obj) {
+        var hdu;
+        arr.map(function (item) {
+            var hduCapcity;
+            var hduConfig;
             for (hdu in obj) {
                 if (obj[hdu] > item.hduForce) {
                     hduConfig = hdu;
@@ -226,20 +227,22 @@ export class NdsShearWallCalc {
                 }
             }
             Object.assign(item, {
-                hduConfig,
-                hduCapcity
+                hduConfig: hduConfig,
+                hduCapcity: hduCapcity
             });
         });
         return arr;
-    }
-    cfaShearWallResults(arr) {
-        let res = {};
-        arr.map((item) => {
+    };
+    NdsShearWallCalc.prototype.cfaShearWallResults = function (arr) {
+        var res = {};
+        arr.map(function (item) {
             res[item.cfaWebID] = {
                 value: item.swTypeCntrl.type
             };
         });
         return res;
-    }
-}
-export default NdsShearWallCalc;
+    };
+    return NdsShearWallCalc;
+}());
+exports.NdsShearWallCalc = NdsShearWallCalc;
+exports.default = NdsShearWallCalc;

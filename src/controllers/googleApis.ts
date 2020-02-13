@@ -44,3 +44,4 @@ class GoogleAPIs {
 
 }
 
+export default GoogleAPIs;

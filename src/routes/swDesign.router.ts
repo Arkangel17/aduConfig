@@ -29,7 +29,7 @@ export class SwDesignRouter {
 
 }
 
-const swDesign = new SwDesignRouter();
-swDesign.init();
+const swDesignRouter = new SwDesignRouter();
+swDesignRouter.init();
 
-export default swDesign.router;
+export default swDesignRouter.router;

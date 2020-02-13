@@ -1,21 +1,22 @@
 'use strict';
-class RoofLiveLoad {
-    constructor(areaTrib, rise) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var RoofLiveLoad = /** @class */ (function () {
+    function RoofLiveLoad(areaTrib, rise) {
         this.areaTrib = areaTrib;
         this.rise = rise;
     }
-    calc() {
-        const areaTrib = this.areaTrib;
-        const rise = this.rise;
+    RoofLiveLoad.prototype.calc = function () {
+        var areaTrib = this.areaTrib;
+        var rise = this.rise;
         return this.getRoofLiveLoad(areaTrib, rise);
-    }
+    };
     ;
-    getRoofLiveLoad(areaTrib, rise) {
-        let res1;
-        let res2;
-        let res3;
-        let res;
-        let roofLive = 20;
+    RoofLiveLoad.prototype.getRoofLiveLoad = function (areaTrib, rise) {
+        var res1;
+        var res2;
+        var res3;
+        var res;
+        var roofLive = 20;
         switch (true) {
             case areaTrib < 200:
                 res1 = 1.0;
@@ -52,6 +53,7 @@ class RoofLiveLoad {
             R2: res2,
             Lr: res
         };
-    }
-}
-export default RoofLiveLoad;
+    };
+    return RoofLiveLoad;
+}());
+exports.default = RoofLiveLoad;
