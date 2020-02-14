@@ -6,6 +6,7 @@ import * as path from "path";
 
 import SwDesignRouter from "./routes/swDesign.router";
 import RoofLiveLoadRouter from "./routes/roofLiveLoad.router";
+import HazardsRouter from "./routes/hazards.router";
 
 
 class App {
@@ -49,7 +50,7 @@ class App {
         this.express.use('/', router);
 
         //Api routes....
-
+        this.express.use('/hazards', HazardsRouter);
         this.express.use('/swDesign', SwDesignRouter);
         this.express.use('/roofLiveLoad', RoofLiveLoadRouter);  
     }

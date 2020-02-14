@@ -7,33 +7,37 @@ class Hazards{
 
     public structApis: any = {};
     public formValues: any = {};
-    public placesAPI = GoogleAPIs['placesAPI']
+    public placesAPI = GoogleAPIs['placesAPI'];
+    public hazardsInput: any;
 
-    constructor() {
+    constructor(hazardsInput: any) {
 
-        this.formValues = (item) => {
+        $('form #submit').bind('click', function (event) {
+            event.preventDefault();            
+            hazardsInput = $('form').serializeArray();            
+            console.log('hazardsInput', hazardsInput);
+        })
+    
+        // this.formValues = (item) => {        
+        //     let formValues = {};  
+        //     $('form').serializeArray().map(item)
+        //     formValues[item.name] = item.value;
+        //     console.log('formValues', formValues) 
+        // }
 
-            let formValues = {};  
-
-            $('form').serializeArray().map(item)
-            formValues[item.name] = item.value;
-
-            this.structApis = new StructAPIs(formValues);
-            
-        }
+        this.structApis = new StructAPIs(hazardsInput);
 
     }
 
-
     public calc(): any {
         
-        const hazards = this.structApis 
-        const seisData = hazards.seis
-        const winData = hazards.wind
-        const snowData = hazards.snow
-        const otherInfo = this.formValues.otherInfo
+        const hazards = this.structApis; 
+        const seisData = hazards.seis;
+        const winData = hazards.wind;
+        const snowData = hazards.snow;
+        const otherInfo = this.hazardsInput;
 
-        this.placesAPI()
+        this.placesAPI();
 
         return this.renderResult(seisData, winData, snowData, otherInfo)
 
@@ -43,7 +47,7 @@ class Hazards{
 
         let cs = (seisData.response.data.sds * otherInfo.seisImpFtr) / otherInfo.respModFtr;
     
-        return `
+        let res =  `
         <div>
             <ul>
                 <li> Date: ${seisData.request.date}</li>
@@ -133,7 +137,11 @@ class Hazards{
     </div>
     
       `;
+
+      $('.designCritInfo').html(res);
+      return res
     }
+
 }
 
-export default Hazards;
+export default Hazards
