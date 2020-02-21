@@ -7,6 +7,7 @@ import * as path from "path";
 import SwDesignRouter from "./routes/swDesign.router";
 import RoofLiveLoadRouter from "./routes/roofLiveLoad.router";
 import HazardsRouter from "./routes/hazards.router";
+import StructApisRouter from "./routes/structApis.router";
 
 
 class App {
@@ -20,7 +21,6 @@ class App {
     this.routes();
     }
 
-
     //configure express middleware... 
     private middleware(): void {
         this.express.use(morgan('dev')); 
@@ -33,18 +33,17 @@ class App {
                 - cyan: redirection errors
                 - else: uncolored... 
         */
-       this.express.use(bodyParser.json())
+       this.express.use(bodyParser.json());
        this.express.use(bodyParser.urlencoded({ extended: false }));
-       this.express.use('/', express.static(path.join(__dirname, 'src')));
-       this.express.use('/', express.static(path.join(__dirname, 'controllers')));
-       
-       
+       this.express.use('/', express.static(path.join(__dirname, 'views')));
+
     }
 
     private routes(): void {
         const router = express.Router();
+        
         router.get('/', (req, res, next) =>{
-            res.sendFile(path.join(__dirname + '/views/gethazards/gethazards.html'));  
+            res.sendFile(path.join(__dirname, '/views/general/general.html'));  
         });
 
         this.express.use('/', router);
@@ -53,6 +52,7 @@ class App {
         this.express.use('/hazards', HazardsRouter);
         this.express.use('/swDesign', SwDesignRouter);
         this.express.use('/roofLiveLoad', RoofLiveLoadRouter);  
+        this.express.use('/structApis', StructApisRouter);
     }
 }
 

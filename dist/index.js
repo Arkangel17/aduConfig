@@ -1,19 +1,24 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var debug = require("debug");
-var http = require("http");
-var App_1 = require("./App");
+const debug = require("debug");
+const http = require("http");
+const App_1 = require("./App");
 debug("ts-express:server");
-var port = normalizePort(process.env.PORT || 8081);
+const port = normalizePort(process.env.PORT || 8081);
 App_1.default.set("port", port);
 // creates server
-var server = http.createServer(App_1.default);
+const server = http.createServer(App_1.default);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
-console.log("app is listening on port " + port);
+console.log(`app is listening on port ${port}`);
 function normalizePort(val) {
-    var port = (typeof val === "string") ? parseInt(val, 10) : val;
+    /**
+    * @desc
+    * @param val: number||string
+    * @return number
+    */
+    const port = (typeof val === "string") ? parseInt(val, 10) : val;
     if (isNaN(port)) {
         return val;
     }
@@ -26,17 +31,22 @@ function normalizePort(val) {
 }
 // Error handler for server
 function onError(error) {
+    /**
+    * @desc
+    * @param:
+    * @return
+    */
     if (error.syscall !== "listen") {
         throw error;
     }
-    var bind = (typeof port === "string") ? "Pipe " + port : "Port " + port;
+    const bind = (typeof port === "string") ? "Pipe " + port : "Port " + port;
     switch (error.code) {
         case "EACCES":
-            console.error(bind + " requires elevated privileges");
+            console.error(`${bind} requires elevated privileges`);
             process.exit(1);
             break;
         case "EADDRINUSE":
-            console.error(bind + " is already in use");
+            console.error(`${bind} is already in use`);
             process.exit(1);
             break;
         default:
@@ -44,7 +54,11 @@ function onError(error) {
     }
 }
 function onListening() {
-    var addr = server.address();
-    var bind = (typeof addr === "string") ? "pipe " + addr : "port " + addr.port;
-    debug("Listening on " + bind);
+    /**
+    * @desc
+    * @return
+    */
+    const addr = server.address();
+    const bind = (typeof addr === "string") ? `pipe ${addr}` : `port ${addr.port}`;
+    debug(`Listening on ${bind}`);
 }

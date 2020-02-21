@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // shear-wall edge-nailing matrix PER AWS NDS TABLE 4.3.A
-var aduConfigLibrary = /** @class */ (function () {
+class aduConfigLibrary {
     //need to add object matrix of shearWallCaps..? 
-    function aduConfigLibrary() {
-    }
+    constructor() { }
     ;
-    aduConfigLibrary.prototype.edgeNailingMatrix = function () {
-        var seismic = {
+    edgeNailingMatrix() {
+        const seismic = {
             "struct1": {
                 "5/16": {
                     "6d": { 6: 400, 4: 600, 3: 780, 2: 1020 }
@@ -55,7 +54,7 @@ var aduConfigLibrary = /** @class */ (function () {
                 },
             }
         };
-        var wind = {
+        const wind = {
             "struct1": {
                 "5/16": {
                     "6d": { 6: 560, 4: 840, 3: 1090, 2: 1430 }
@@ -99,9 +98,9 @@ var aduConfigLibrary = /** @class */ (function () {
                 },
             }
         };
-    };
-    aduConfigLibrary.prototype.getCustomHDUConfig = function () {
-        var holdDownLib = {
+    }
+    getCustomHDUConfig() {
+        const holdDownLib = {
             'DTT1Z': {
                 '2x6': 910, '4x4': 910, '4x6': 910, '4x8': 910
             },
@@ -133,9 +132,9 @@ var aduConfigLibrary = /** @class */ (function () {
             'CS16': { '4x8': 1705 },
             'CS20': { '4x8': 1030 }
         };
-    };
-    aduConfigLibrary.prototype.shearWallCaps = function () {
-        var eq = {
+    }
+    shearWallCaps() {
+        const eq = {
             "340": { type: "A", stiffnessGa: 16, value: 1 },
             "510": { type: "B", stiffnessGa: 20, value: 2 },
             "665": { type: "C", stiffnessGa: 22, value: 3 },
@@ -144,7 +143,7 @@ var aduConfigLibrary = /** @class */ (function () {
             "1330": { type: "CC", stiffnessGa: 44, value: 6 },
             "1740": { type: "DD", stiffnessGa: 56, value: 7 }
         };
-        var wind = {
+        const wind = {
             "475": { type: "A", stiffnessGa: 16, value: 1 },
             "715": { type: "B", stiffnessGa: 20, value: 2 },
             "930": { type: "C", stiffnessGa: 22, value: 3 },
@@ -153,8 +152,7 @@ var aduConfigLibrary = /** @class */ (function () {
             "1860": { type: "CC", stiffnessGa: 44, value: 6 },
             "2435": { type: "DD", stiffnessGa: 56, value: 7 }
         };
-    };
-    return aduConfigLibrary;
-}());
+    }
+}
 exports.aduConfigLibrary = aduConfigLibrary;
 exports.default = aduConfigLibrary;

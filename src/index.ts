@@ -14,7 +14,14 @@ server.on("error", onError);
 server.on("listening", onListening)
 console.log(`app is listening on port ${port}`);
 
+
 function normalizePort(val: number|string): number|string|boolean {
+/**
+* @desc 
+* @param val: number||string
+* @return number 
+*/
+
     const port: number = (typeof val === "string") ? parseInt(val, 10) : val;
     if (isNaN(port)) { return val; }
     else if (port >= 0) { return port; }
@@ -23,6 +30,12 @@ function normalizePort(val: number|string): number|string|boolean {
   
 // Error handler for server
 function onError(error: NodeJS.ErrnoException): void {
+/**
+* @desc 
+* @param: 
+* @return 
+*/
+
 if (error.syscall !== "listen") { throw error; }
 const bind = (typeof port === "string") ? "Pipe " + port : "Port " + port;
 switch (error.code) {
@@ -40,6 +53,11 @@ switch (error.code) {
 }
 
 function onListening(): void {
+/**
+* @desc 
+* @return 
+*/
+
     const addr = server.address();
     const bind = (typeof addr === "string") ? `pipe ${addr}` : `port ${addr.port}`;
     debug(`Listening on ${bind}`);

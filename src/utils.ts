@@ -25,7 +25,7 @@ public degrees(radians: number): any {
 }
 
 public radians(degrees: number): any {
-    /**
+/**
 * @desc get degrees and return radians
 * @param degrees: number
 * @return the result of the convertion
@@ -42,28 +42,30 @@ public convertFromObjectToArray(obj: any) {
 }
 
  public getPerfSwCoFactor(){
-    /**
+/**
 * @desc 
-* @param : 
+* @param: 
 * @return 
 */
 
 }
 
  public getSwAspectRatioFactor(){
-    /**
+/**
 * @desc 
-* @param : 
+* @param: 
 * @return 
 */
 }
 
 public calcDistanceToZero(num1: number, num2: number): any {
-    /**
+/**
 * @desc execute Math.abs on both numbers pick the greater (negative or positive)
-* @param num1: number, num2: number
+* @param num1: number
+* @param num2: number
 * @return number - greater number distance of zero negative or positive
 */
+
     const sig1 = (num1 < 0) ? -1 : 1;
     const sig2 = (num2 < 0) ? -1 : 1;
     const absNum1 = Math.abs(num1);
@@ -75,7 +77,7 @@ public calcDistanceToZero(num1: number, num2: number): any {
 }
 
 private linearFormula(value: number, windCcRoofEffArea: number): any {
-        /**
+/**
 * @desc 
 * @param value:
 * @param windCcRoofEffArea:
@@ -87,7 +89,7 @@ private linearFormula(value: number, windCcRoofEffArea: number): any {
 }
 
   public linearInterpolation(windExp: string, windCcRoofEffArea: number): any {
-              /**
+/**
 * @desc 
 * @param windExp:
 * @param windCcRoofEffArea:

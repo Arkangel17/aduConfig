@@ -1,22 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = require("express");
-var hazards_1 = require("../controllers/hazards");
-var HazardsRouter = /** @class */ (function () {
-    function HazardsRouter() {
+const express_1 = require("express");
+const hazards_1 = require("../controllers/hazards");
+class HazardsRouter {
+    constructor() {
         this.router = express_1.Router();
         this.init();
     }
-    HazardsRouter.prototype.getResults = function (req, res, next) {
-        var process = new hazards_1.default();
+    getResults(req, res, next) {
+        const body = req.body;
+        const inputs = (Object.keys(body).length === 0) ? {} : body;
+        const process = new hazards_1.default(inputs);
         res.send({ results: process.calc });
-    };
-    HazardsRouter.prototype.init = function () {
-        this.router.post('/', this.getResults);
-    };
-    return HazardsRouter;
-}());
+    }
+    init() {
+        this.router.post('/hazards', this.getResults);
+    }
+}
 exports.HazardsRouter = HazardsRouter;
-var hazardsRouter = new HazardsRouter();
+const hazardsRouter = new HazardsRouter();
 hazardsRouter.init();
 exports.default = hazardsRouter.router;

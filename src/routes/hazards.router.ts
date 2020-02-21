@@ -11,14 +11,16 @@ export class HazardsRouter {
 
     public getResults( req: Request, res: Response, next: NextFunction){
 
-        const process = new Hazards();
+        const body = req.body 
+        const inputs = (Object.keys(body).length === 0) ? {} : body;
+        const process = new Hazards(inputs);
 
         res.send({ results: process.calc });
     }
 
 
     public init() {
-        this.router.post('/', this.getResults)
+        this.router.post('/hazards', this.getResults)
     }
 
 }

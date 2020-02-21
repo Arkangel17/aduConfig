@@ -27,16 +27,16 @@
       
     <style type="text/css">
     nav {
-        background-color: #456981;
+        background-color: rgb(168, 168, 168);
         height: 100px;
     }
     #output {
         height: 800px;
         overflow: scroll;
-        background-color: #456981;
+        background-color: rgb(168, 168, 168);
     }
     .icon{
-        background-color: #456981;
+        background-color: rgb(168, 168, 168);
     }
     </style>
    
@@ -123,39 +123,26 @@
 
     
 <script>
-// function checkForm(indexer){
-//     let formValues = {};
 
-//     $('.form').serializeArray().map((item,index)=>{
-//         formValues[item.name] = item.value;
-//         console.log('formValues',formValues);
-//     });
-// }
+function serializeData(tag){
+    let temp = {}
+    $(`${tag}`).serializeArray().map((item)=>{        
+        temp[item.name] = item.value;
+    });
+    return temp
+}
 
 $(document).ready(()=>{
 
     let select = $('select');
     select.formSelect();
-    
-
-
-    // let formValues = {};
-
-    // $('form').serializeArray().map((item)=>{
-        
-    //     formValues[item.name] = item.value;
-    // });
-
-    // console.log('formValues', formValues)
 
     $('form .send').bind('click', function (event) {
-    event.preventDefault()
-
-   let swDesignInput = $('form').serializeArray();
-
-   console.log('swDesignInput', swDesignInput)
-})
-  });
+        event.preventDefault();
+        let swDesignInput = serializeData('form');
+        console.log('swDesignInput', swDesignInput);
+    })
+});
 
 
 

@@ -1,13 +1,13 @@
 'use strict'
 
 import StructAPIs from "./structApis";
-import GoogleAPIs from "./googleApis";
+// import GoogleAPIs from "./googleApis";
 
 class Hazards{
 
     public structApis: any = {};
     public formValues: any = {};
-    public placesAPI = GoogleAPIs['placesAPI'];
+    // public placesAPI = GoogleAPIs['placesAPI'];
     public hazardsInput: any;
 
     constructor(hazardsInput: any) {
@@ -37,7 +37,7 @@ class Hazards{
         const snowData = hazards.snow;
         const otherInfo = this.hazardsInput;
 
-        this.placesAPI();
+        // this.placesAPI();
 
         return this.renderResult(seisData, winData, snowData, otherInfo)
 

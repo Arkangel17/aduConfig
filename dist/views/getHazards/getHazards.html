@@ -4,25 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-inline'; connect-src *; img-src *; style-src *; font-src *"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAS1ppQZ0RbK3k5Zv121KdtG61DqY_Mrno"></script>
 
-    <link href="./getHazards.css" type="text/css"/>
+    <!-- <link rel="stylesheet" type="text/css" href="getHazards.css" /> -->
+
+<style>
+
+    .address  {
+        width: 350px;    
+    }
+
+    body {
+        font: 14px/17px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-style: normal;
+        font-variant-ligatures: normal;
+        font-variant-caps: normal;
+        font-variant-numeric: normal;
+        font-variant-east-asian: normal;
+        font-weight: normal;
+        font-stretch: normal;
+        font-size: 14px;
+        line-height: 17px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .blk{
+        color: black;
+    }
+
+    .gray{
+        color:rgb(168, 168, 168);
+    }
+    
+    .bold{
+        font-weight: bold;
+    }
+
+    .borderLine{
+        border:rgb(168, 168, 168);
+        border-width: thin;    
+  
+    }
+
+    button {
+        border: none;
+        background-color:  rgb(168, 168, 168);
+        color: #ffffff;
+        font-size: 18px;
+        text-transform: uppercase;
+        border-radius: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 40px;
+    }
+
+    #chartContainer{
+        position: relative;
+        margin: auto;
+        height: 80vh;
+        width: 80vw;
+    }
+    
+    .designCrit {
+        width: 460px;
+        height: 286px;
+        padding-top: 20px;
+        padding-left: 10px;
+        background-color: rgb(168, 168, 168);
+    }
+    
+    .divider{
+        padding: 5px;
+        background-color: rgb(168, 168, 168);
+    }    
+
+    .formAndMapWrapper{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 100px);
+    }
+
+    .formAndMapWrapperItem1{
+        grid-column: 1 / 2;
+        grid-row: 1;
+    }
+
+    .formAndMapWrapperItem2{
+        grid-column: 2 / 4;
+        grid-row: 1;
+    }
+
+    #hintBox{
+        display: none;
+        position: absolute;
+        width: 150px;
+        height: 25px;
+        background-color: lightgray;  
+    }
+
+    #inputbox{
+        width: 200px;
+    }
+    
+    #inputBoxContainer{
+        font-weight: bold;
+        font-size: 10px;  
+    }
+
+    #lineChart{
+        width: 1000px;
+        height: auto;
+    }
+
+    .logo{
+        width: 200px;
+        height: 200px;
+    }
+
+    .logo:hover{
+        box-shadow: 0 0 20px gray ;
+    }
+    
+    #map{
+        width: 100%;
+        height: 300px;
+        border: solid;
+        border-color:   rgb(168, 168, 168);
+    }  
+
+    .mapContainer{
+        padding-top: 20px; 
+    }
+    
+    .printFile{
+        padding-top: 20px;
+    }
+
+    select{
+        width: 205px;
+    }
+
+    #next{
+        padding-top: -30px;
+    }   
+
+</style>
 
     <title>HAZARDS</title>
 </head>
 
 <header role="banner">
-    <div>
-        <a href="index.html">
-            <!-- <img class="logo" tabindex="-1" src="https://i.imgur.com/4tjft2r.gif" alt="ISI_logo"> -->
-            <!-- <img class="logo" tabindex="-1" src="https://i.imgur.com/n6oYuLx.jpg" alt="PFI_logo"> -->
-            <img class="logo" tabindex="-1" src="https://i.imgur.com/sunnRcym.jpg" alt="archengel_logo">
-        </a>
+    
+    <div class>
+        <!-- <img class="logo" tabindex="-1" src="https://i.imgur.com/4tjft2r.gif" alt="ISI_logo"> -->
+        <!-- <img class="logo" tabindex="-1" src="https://i.imgur.com/n6oYuLx.jpg" alt="PFI_logo"> -->
+        <img class="logo borderLine" tabindex="-1" src="https://i.imgur.com/sunnRcym.jpg" alt="archengel_logo" style="border: 2.5px solid rgb(168, 168, 168)">
+
     </div>
 </header>
 
@@ -31,63 +174,288 @@
 <body>
     <main>
         <h1>Design Criteria</h1>
-
-        <form action="#" class="designCrit">
-            <label for="query"></label>
-            <input type="text" class="address" id="autocomplete" placeholder="address: street city state">
-            <br>
-            <input type="text" list="riskCat" class="riskCategory hover" id="inputbox" placeholder="riskCategory">
-                <datalist id="riskCat">
-                    <option value="" disabled selected></option>
-                    <option value="I"></option>
-                    <option value="II"></option>
-                    <option value="III"></option>
-                    <option value="IV"></option>
-                </datalist>
-            <br>
-            <input type="text"  list="sdc" class="siteClass" id="inputbox" placeholder="siteClass">
-                <datalist id="sdc">
-                    <option value="" disabled selected></option>
-                    <option value="B"></option>
-                    <option value="C"></option>
-                    <option value="D"></option>
-                </datalist>
-            <br>
-            <input type="text" class="respModFtr" id="inputbox" placeholder="respModFtr: Enter 1 - 8">
-            <br>
-            <input type="text" class="seisImpFtr" id="inputbox" placeholder="seisImpFtr: Enter 1 - 1.5">
-            <br>
-            <input type="text" class="title" id="inputbox" placeholder="Project Title">
-            <br>
-            <button type="submit" id="submit">Submit</button>
-        </form>
-
-
-        <button class="printFile" onclick="window.print()">Print/Save PDF</button>
-
-        <div id="hintBox"></div>
-
-        <div id="pdfContent">
-            
-            <div class="mapContainer">
-                <div id="map"></div>
+        <div class="formAndMapWrapper">
+            <div class="formAndMapWrapperItem1">
+                <form autocomplete="off" action="" method="post" class="designCrit">
+                    <input type="text" class="address" name="address" id="autocomplete" placeholder="address: street city state">
+                    <br>
+                    <select id="asceCodeVers" name="asceCodeVers" class="dropDown">
+                        <option value="" disabled selected >asceCodeVers</option>
+                        <option value="asce7-10" class="blk">asce7-10</option>
+                        <option value="asce7-16" class="blk">asce7-16</option>
+                    </select>
+                    <br>
+                    <select id="riskCat" name="riskCat" class="dropDown">
+                        <option value="" disabled selected >RiskCategory</option>
+                        <option value="I" class="blk">I</option>
+                        <option value="II" class="blk">II</option>
+                        <option value="III" class="blk">III</option>
+                        <option value="IV" class="blk">IV</option>
+                    </select>
+                    <br>
+                    <select id="siteSoilClass" name="siteSoilClass" class="dropDwn">
+                        <option value="" disabled selected>siteSoilClass</option>
+                        <option value="B" class="blk">B<B/option>
+                        <option value="C" class="blk">C</option>
+                        <option value="D" class="blk">D</option>
+                    </select>
+                    <br>
+                    <input type="text" class="respModFtr" name="respModFtr" id="inputbox" placeholder="respModFtr: Enter 1 - 8">
+                    <br>
+                    <input type="text" class="seisImpFtr" name="seisImpFtr" id="inputbox" placeholder="seisImpFtr: Enter 1 - 1.5">
+                    <br>
+                    <input type="text" class="title" name="projectName" id="inputbox" placeholder="Project Title">
+                    <br>
+                    <button type="button" id="next">next</button>
+                </form>
+            </div>           
+            <div class="formAndMapWrapperItem2" id="map"></div>
+        </div>
+        <div>
+            <button class="printFile" onclick="window.print()">Print/Save PDF</button>
+        </div>
+        <div id="pdfContent">          
+            <div>
+                <h2>Results</h2>
+                <pre id="results"></pre>
             </div>
-    
-            <h2>Results</h2>
-            <div class="desCritInfo"></div>
-    
+            <div class="desCritInfo"></div>    
             <h2>Graphics</h2>
             <div class="chartContainer" >
                 <canvas id="lineChart"></canvas>
             </div>
-
         </div>
-
     </main>
+ 
 
-<script> let exports = {}; </script>            
-<script src="hazards.js"></script>
-<div id="editor"></div>
+<!-- <script src="hazards.js"></script> -->
+<script>
+
+function activateGooglePlacesAPI(){
+    /**
+    * @desc get radians and return degrees
+    * @param degrees: number
+    * @return the result of the convertion
+    */
+    let input = document.getElementById('autocomplete');
+    return new google.maps.places.Autocomplete(input);
+}
+
+function initGoogleMapAPI(query) {
+
+    let map = new google.maps.Map(document.getElementById('map'), {
+        center: query,
+        zoom: 17
+    });
+
+    let imageURL = 'https://i.imgur.com/kUG7GZa.png';
+
+    // let image = new google.maps.MarkerImage(imageURL,
+    //     new google.maps.Size(20, 20));
+
+    let image = {
+        "url": imageURL,
+        "scaledSize": new google.maps.Size(30, 30),
+        "origin": new google.maps.Point(0, 0),
+        "anchor": new google.maps.Point(0, 0)
+    };
+
+    let frogPin = new google.maps.Marker({
+        position: query,
+        map,
+        icon: image,
+        title: 'hello'
+    });
+}
+
+function serializeInputs(input, select){
+    /**
+    * @desc get radians and return degrees
+    * @param degrees: number
+    * @return the result of the convertion
+    */
+
+    let hazardsInput = {};
+    input.serializeArray().map((item)=>{
+        hazardsInput[item.name] = item.value        
+    }); 
+    select.serializeArray().map((item)=>{
+        hazardsInput[item.name] = item.value        
+    });   
+    return hazardsInput
+}
+
+function selectDropDownColorChange(){
+    /**
+    * @desc get radians and return degrees
+    * @param degrees: number
+    * @return the result of the convertion
+    */
+
+    // definitely be refactored....
+    
+    $('#riskCat').css('color','gray');
+    
+    $('#riskCat').change(()=>{
+        let current = $('#riskCat').val()
+        if(current != 'null'){
+            $('#riskCat').css('color','black')
+        }else{
+            $('#riskCat').css('color','gray')
+        }
+    })
+
+    $('#siteSoilClass').css('color','gray');
+
+    $('#siteSoilClass').change(()=>{
+        let current = $('#siteSoilClass').val()
+        if(current != 'null'){
+            $('#siteSoilClass').css('color','black')
+        }else{
+            $('#siteSoilClass').css('color','gray')
+        }
+    })
+
+    $('#asceCodeVers').css('color','gray');
+
+    $('#asceCodeVers').change(()=>{
+        let current = $('#asceCodeVers').val()
+        if(current != 'null'){
+            $('#asceCodeVers').css('color','black')
+        }else{
+            $('#asceCodeVers').css('color','gray')
+        }
+    })
+
+
+}
+
+
+
+function renderSdSpectrum(sdSpectrum) {
+    let ctx = $('#lineChart');
+
+    let xDataPts = sdSpectrum.map((item, index) => {
+        return item[0];
+    });
+    let yDataPts = sdSpectrum.map((item, index) => {
+        return item[1];
+    });
+   
+    let lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xDataPts,
+            xAxisID: 'do what you say',
+            yAxisID: 'say what you want',
+            datasets: [{
+                label: "Sds Data Pts",
+                backgroundColor: "rgb(224,255,255)",
+                borderColor: " rgb(93, 230, 240)",
+                borderWidth: 2,
+                hoverBackgroundColor: "rgb(187,255,255)",
+                hoverBorderColor: " rgb(93, 230, 240)",
+                data: yDataPts,
+            }]
+        },
+
+        options: {
+            maintainAspectRatio: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'ACCEL (g.)',
+                        fontStyle: 'bold',
+                        fontSize: 14
+
+                    },
+                    stacked: true,
+                    gridLines: {
+                        display: true,
+                        color: "rgba(151,255,255, 0.3)"
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'PERIOD (sec.)',
+                        fontStyle: 'bold',
+                        fontSize: 14
+                    },
+                    gridLines: {
+                        display: true,
+                        color: "rgba(151,255,255,0.3)"
+                    }
+                }]
+            }
+        }
+    });
+}
+
+
+//activates onces the DOM is ready...
+$(document).ready(()=>{
+
+    // alert('Welcome to Archengel Designs')  
+
+    
+    let input = $('input'),
+    next = $('#next'), 
+    select = $('select'),
+    results = $('#results');
+    
+    selectDropDownColorChange()
+    activateGooglePlacesAPI()
+
+
+    // var url;
+    next.bind('click', (e) => {
+        e.preventDefault();
+
+        let url = 'http://localhost:8081/structApis'
+        let selected = serializeInputs(input, select);
+        console.log('selected', selected);
+
+        $.post(url, selected, data =>{ 
+            let payload = {
+                'geoLocation': data['geo'],
+                'code': data['formValues']['asceCodeVers'],
+                'seismic': {
+                    'ss': data['seismic']['ss'],
+                    's1': data['seismic']['s1'],
+                    'pga': data['seismic']['pga'],
+                    'sdc': data['seismic']['sdc'],
+                    'tl': data['seismic']['tl']                            
+                },
+                'wind': {
+                    'elevation': data['wind'][0]['elevation'],
+                    'windi': data['wind'][0]['windi'],
+                    'windii': data['wind'][0]['windii'],
+                    'windiii': data['wind'][0]['windiii']
+                },
+                'snow': {
+                    'elevation': data['snow'][0]['elevation'],
+                    'pg': data['snow'][0]['pg']
+                }
+            };
+            let seisGraph = {
+                'twoPeriodDesignSpectrum': data['seismic']['twoPeriodDesignSpectrum']
+            };
+            
+            initGoogleMapAPI(payload.geoLocation);           
+            results.html(JSON.stringify(payload, null, 2));
+            renderSdSpectrum(seisGraph.twoPeriodDesignSpectrum);
+        });
+    });
+});
+
+// activates onces everything is loaded/ready: the DOM, as well as, but not limited to: images, ads, etc... 
+// window.addEventListener('load', () =>{
+//     alert('hey whats up')
+// })
+
+</script>
 
 </body>
 </html>

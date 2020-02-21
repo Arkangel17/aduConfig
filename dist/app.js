@@ -1,19 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var bodyParser = require("body-parser");
-var express = require("express");
-var morgan = require("morgan");
-var path = require("path");
-var swDesign_router_1 = require("./routes/swDesign.router");
-var roofLiveLoad_router_1 = require("./routes/roofLiveLoad.router");
-var App = /** @class */ (function () {
-    function App() {
+const bodyParser = require("body-parser");
+const express = require("express");
+const morgan = require("morgan");
+const path = require("path");
+const swDesign_router_1 = require("./routes/swDesign.router");
+const roofLiveLoad_router_1 = require("./routes/roofLiveLoad.router");
+const hazards_router_1 = require("./routes/hazards.router");
+const structApis_router_1 = require("./routes/structApis.router");
+class App {
+    constructor() {
         this.express = express();
         this.middleware();
         this.routes();
     }
     //configure express middleware... 
-    App.prototype.middleware = function () {
+    middleware() {
         this.express.use(morgan('dev'));
         /*
         Dev = predefined morgan format
@@ -26,19 +28,19 @@ var App = /** @class */ (function () {
         */
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: false }));
-        this.express.use('/', express.static(path.join(__dirname, 'src')));
-        this.express.use('/', express.static(path.join(__dirname, 'controllers')));
-    };
-    App.prototype.routes = function () {
-        var router = express.Router();
-        router.get('/', function (req, res, next) {
-            res.sendFile(path.join(__dirname + '/views/gethazards/gethazards.html'));
+        this.express.use('/', express.static(path.join(__dirname, 'views')));
+    }
+    routes() {
+        const router = express.Router();
+        router.get('/', (req, res, next) => {
+            res.sendFile(path.join(__dirname, '/views/general/general.html'));
         });
         this.express.use('/', router);
         //Api routes....
+        this.express.use('/hazards', hazards_router_1.default);
         this.express.use('/swDesign', swDesign_router_1.default);
         this.express.use('/roofLiveLoad', roofLiveLoad_router_1.default);
-    };
-    return App;
-}());
+        this.express.use('/structApis', structApis_router_1.default);
+    }
+}
 exports.default = new App().express;
