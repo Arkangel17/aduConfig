@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-inline'; connect-src *; img-src *; style-src *; font-src *"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+<style>
+
+    .address  {
+        width: 350px;    
+    }
+
+    a[title]:hover:after{
+        content: attr(title);
+        padding: 4px 8px;
+        color: white;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        white-space: nowrap;
+        z-index: 2;
+        border-radius: 5px ;
+        background: rgb(168, 168, 168);
+    }
+
+    a{
+        text-decoration-line: none;
+    }
+
+    a>div.label{
+        font-weight: bold;
+        color:gray;
+    }
+
+    body {
+        font: 14px/17px "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-style: normal;
+        font-variant-ligatures: normal;
+        font-variant-caps: normal;
+        font-variant-numeric: normal;
+        font-variant-east-asian: normal;
+        font-weight: normal;
+        font-stretch: normal;
+        font-size: 14px;
+        line-height: 17px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    .blk{
+        color: black;
+    }
+
+    .gray{
+        color:rgb(168, 168, 168);
+    }
+    
+    .bold{
+        font-weight: bold;
+    }
+
+    .borderLine{
+        border:rgb(168, 168, 168);
+        border-width: thin;    
+    
+    }
+
+    .divider{
+        padding: 5px;
+        background-color: rgb(168, 168, 168);
+    } 
+
+    .icon_elfFpx{
+        width: 90px; 
+        height: 60px; 
+    }
+
+    .icon_seisMass{
+        width: 90px; 
+        height: 60px; 
+    }
+    
+    .icon_hazards{
+        /* width = 3.489(height) */
+        width: 210px; 
+        height: 60px; 
+    }
+
+    .item .label .modules .toolSelect{
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 100%;
+        text-align: center;
+        width: 100%;
+        height: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo{
+        width: 200px;
+        height: 200px;
+    }
+
+    .logo:hover{
+        box-shadow: 0 0 20px rgb(168, 168, 168);
+    }
+
+    .modules{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;   
+    }
+
+    .module_hazards{
+        display: inline-block;
+        /* width = icon_hazards.width+10px */
+        width: 220px;
+        /* width = icon_hazards.height+20px */
+        height: 80px;
+        text-align: center;
+        border: 2px solid rgb(168, 168, 168);
+        padding: 5px;
+        margin: 5px 5px;
+        vertical-align: top;
+        overflow: hidden;
+        position: relative;
+        border-radius: 0;
+        color: inherit;
+    }
+
+    .module_hazards:hover{
+        box-shadow: 0 0 20px rgb(168, 168, 168);
+    }
+    
+    #next{
+        padding-top: -30px;
+    }  
+    
+    .spaceBar{
+        padding: 10px;
+        background-color: none;        
+    }
+
+
+</style>
+
+    <title>HAZARDS</title>
+</head>
+
+<header role="banner">
+    
+    <div class>
+        <!-- <img class="logo" tabindex="-1" src="https://i.imgur.com/4tjft2r.gif" alt="ISI_logo"> -->
+        <!-- <img class="logo" tabindex="-1" src="https://i.imgur.com/n6oYuLx.jpg" alt="PFI_logo"> -->
+        <img class="logo borderLine" tabindex="-1" src="https://i.imgur.com/sunnRcym.jpg" alt="archengel_logo" style="border: 2.5px solid rgb(168, 168, 168)">
+
+    </div>
+</header>
+<div class="spaceBar"></div>
+<div class="divider"></div>
+<div class="spaceBar"></div>
+
+<body>
+    <div class="modules">
+        <a href="../getHazards/getHazards.html" class="module_hazards" title="GEO HAZARDS DATA">
+            <img class="icon_hazards" tabindex="-1" src="https://i.imgur.com/aqkb9eD.png" alt="hazardsIcon" >
+            <div class="label">HAZARDS</div>    
+        </a>
+        <a href="hazards.html" class="module_hazards" title="SEISMIC MASS">
+            <img class="icon_seisMass" tabindex="-1" src="https://i.imgur.com/fNR55bM.png" alt="seisMassIcon">
+            <div class="label">SEISMIC MASS</div>            
+        </a>
+        <a href="hazards.html" class="module_hazards" title="ELF-FPX">
+            <img class="icon_elfFpx" tabindex="-1" src="https://i.imgur.com/ZUEiS4F.png" alt="elfFpxIcon">
+            <div class="label">ELF-FPX</div>            
+        </a>
+        <a href="../swDesigner/swDesign.html" class="module_hazards" title="WDSW">
+            <div class="label">WDSW</div>            
+        </a>
+        <a href="" class="module_hazards" title="MWFRS">
+            <div class="label">MWFRS</div>            
+        </a>
+        <a href="" class="module_hazards" title="diaphragm">
+            <div class="label">DIAPHRAGM</div>            
+        </a>
+        <a href="" class="module_hazards" title="collector">
+            <div class="label">COLLECTOR</div>            
+        </a>
+        <a href="" class="module_hazards" title="MWFRS">
+            <div class="label">RIGID ANALYSIS</div>            
+        </a>
+        <a href="" class="module_hazards" title="WINDCC">
+            <div class="label">FLEX ANALYSIS</div>            
+        </a>
+    </div>
+</body>

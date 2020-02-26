@@ -16,7 +16,6 @@ class StructApisRouter {
         });
     }
     init() {
-        console.log('structApi router - gets here');
         this.router.post('/', this.getResults);
     }
 }

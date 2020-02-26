@@ -11,6 +11,7 @@
     crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBRyB4jVPWaO8_KRO-uDPwbYXnbgkiqvuQ"></script>
 
     <!-- <link rel="stylesheet" type="text/css" href="getHazards.css" /> -->
 
@@ -150,6 +151,11 @@
         width: 205px;
     }
 
+    .spaceBar{
+        padding: 10px;
+        background-color: none;        
+    }
+
     #next{
         padding-top: -30px;
     }   
@@ -169,6 +175,7 @@
     </div>
 </header>
 
+<div class="spaceBar"></div>
 <div class="divider"></div>
 
 <body>
@@ -240,6 +247,15 @@ function activateGooglePlacesAPI(){
     let input = document.getElementById('autocomplete');
     return new google.maps.places.Autocomplete(input);
 }
+
+// function loadGoogleApiScript(src,callback){
+  
+//     var script = document.createElement("script");
+//     script.type = "text/javascript";
+//     if(callback)script.onload=callback;
+//     document.getElementsByTagName("head")[0].appendChild(script);
+//     script.src = src;
+// }
 
 function initGoogleMapAPI(query) {
 
@@ -406,6 +422,10 @@ $(document).ready(()=>{
     results = $('#results');
     
     selectDropDownColorChange()
+    
+    // loadGoogleApiScript('http://maps.googleapis.com/maps/api/js?v=3&sensor=false&callback=initialize',
+    //         function(){console.log('google-loader has been loaded, but not the maps-API ');});
+
     activateGooglePlacesAPI()
 
 

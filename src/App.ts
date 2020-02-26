@@ -6,7 +6,6 @@ import * as path from "path";
 
 import SwDesignRouter from "./routes/swDesign.router";
 import RoofLiveLoadRouter from "./routes/roofLiveLoad.router";
-import HazardsRouter from "./routes/hazards.router";
 import StructApisRouter from "./routes/structApis.router";
 
 
@@ -43,13 +42,12 @@ class App {
         const router = express.Router();
         
         router.get('/', (req, res, next) =>{
-            res.sendFile(path.join(__dirname, '/views/general/general.html'));  
+            res.sendFile(path.join(__dirname, '/views/index/index.html'));  
         });
 
         this.express.use('/', router);
 
         //Api routes....
-        this.express.use('/hazards', HazardsRouter);
         this.express.use('/swDesign', SwDesignRouter);
         this.express.use('/roofLiveLoad', RoofLiveLoadRouter);  
         this.express.use('/structApis', StructApisRouter);

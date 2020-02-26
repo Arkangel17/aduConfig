@@ -6,7 +6,6 @@ const morgan = require("morgan");
 const path = require("path");
 const swDesign_router_1 = require("./routes/swDesign.router");
 const roofLiveLoad_router_1 = require("./routes/roofLiveLoad.router");
-const hazards_router_1 = require("./routes/hazards.router");
 const structApis_router_1 = require("./routes/structApis.router");
 class App {
     constructor() {
@@ -33,11 +32,10 @@ class App {
     routes() {
         const router = express.Router();
         router.get('/', (req, res, next) => {
-            res.sendFile(path.join(__dirname, '/views/general/general.html'));
+            res.sendFile(path.join(__dirname, '/views/index/index.html'));
         });
         this.express.use('/', router);
         //Api routes....
-        this.express.use('/hazards', hazards_router_1.default);
         this.express.use('/swDesign', swDesign_router_1.default);
         this.express.use('/roofLiveLoad', roofLiveLoad_router_1.default);
         this.express.use('/structApis', structApis_router_1.default);
