@@ -1,12 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 `use strict`;
-// public edgeNailing = (obj, forceType, sheathing, thickness, fastener, spacing,dblSided) => {
-//     let res = (dblSided) ? obj[forceType][sheathing][thickness][fastener][spacing] : 
-//     0.5 * obj[forceType][sheathing][thickness][fastener][spacing];
-//     console.log(res);
-//     return res
-// }  
 class Utils {
     // MISC FUNCTIONS 
     degrees(radians) {
@@ -31,19 +25,33 @@ class Utils {
             return obj[key];
         });
     }
-    getPerfSwCoFactor() {
+    setInput(inputs, flat) {
         /**
-        * @desc
-        * @param:
-        * @return
+          * @desc updates inputs object values accoring to types
+          * @param object input:object, flat?: boolean
+          * @return object - inputs with serialize values
         */
-    }
-    getSwAspectRatioFactor() {
-        /**
-        * @desc
-        * @param:
-        * @return
-        */
+        const keys = Object.keys(inputs);
+        keys.forEach((key, index) => {
+            const currentInput = inputs[key];
+            const val = parseFloat(currentInput);
+            if (currentInput === "undefined") {
+                inputs[key] = undefined;
+            }
+            if (!isNaN(val)) {
+                inputs[key] = val;
+            }
+            else if (currentInput === "true" || currentInput === "false") {
+                inputs[key] = true;
+            }
+            else if (Array.isArray(currentInput)) {
+                inputs[key] = currentInput;
+            }
+            else {
+                inputs[key] = inputs[key];
+            }
+        });
+        return inputs;
     }
     calcDistanceToZero(num1, num2) {
         /**
@@ -59,43 +67,58 @@ class Utils {
         const max = Math.max(absNum1, absNum2);
         return (max === absNum1) ? (absNum1 * sig1) : (absNum2 * sig2);
     }
-    linearFormula(value, windCcRoofEffArea) {
+    ceilPrecise(number, significance) {
         /**
-        * @desc
-        * @param value:
-        * @param windCcRoofEffArea:
-        * @return
+          * @desc execute Math.ceil and apply times number to create index on matrix
+          * @param number: number, significance: number
+          * @return number - formula result
         */
-        const log10 = Math.log10(10);
-        return Math.abs(((1 - value) / (log10 - Math.log10(500))) * (log10 - Math.log10(windCcRoofEffArea)) - 1);
+        return (Math.ceil(number / significance)) * significance;
     }
-    linearInterpolation(windExp, windCcRoofEffArea) {
+    floorPrecise(number, significance) {
         /**
-        * @desc
-        * @param windExp:
-        * @param windCcRoofEffArea:
-        * @return
+          * @desc execute Math.floor and apply times number to create index on matrix
+          * @param number: number, significance: number
+          * @return number - formula result
         */
-        const a = (windExp === "A") ? this.linearFormula(1, windCcRoofEffArea) : 1;
-        const b = (windExp === "B") ? this.linearFormula(.9, windCcRoofEffArea) : 1;
-        const c = (windExp === "C") ? this.linearFormula(.8, windCcRoofEffArea) : 1;
-        const d = (windExp === "D") ? this.linearFormula(.7, windCcRoofEffArea) : 1;
-        const e = (windExp === "E") ? this.linearFormula(.6, windCcRoofEffArea) : 1;
-        return {
-            positive: {
-                flat: { 1: 1, 2: 1, 3: 1, 4: d, 5: d },
-                mansard: { 1: b, 2: b, 3: b, 4: d, 5: d },
-                hip: { 1: b, 2: b, 3: b, 4: d, 5: d },
-                monoslope: { 1: c, 2: c, 3: c, 4: d, 5: d },
-            },
-            negative: {
-                flat: { 1: d, 2: d, 3: d, 4: c, 5: e },
-                mansard: { 1: b, 2: c, 3: c, 4: c, 5: e },
-                hip: { 1: b, 2: c, 3: c, 4: c, 5: e },
-                monoslope: { 1: a, 2: b, 3: c, 4: c, 5: e },
-            },
-            overhang: { 1: a, 2: a, 3: b, 4: 1, 5: 1 },
+        return (Math.floor(number / significance)) * significance;
+    }
+    cubicFeetConverter(number, units) {
+        /**
+          * @desc execute 0.04 multiplier to convert cubic feet to cubic yard or meter
+          * based on string input param
+          * @param number: number, Units: 'yards' || 'meters'
+          * @return number - formula result
+        */
+        const unitObj = {
+            'yards': 0.04,
+            'meters': 0.03
         };
+        return number * unitObj[units];
+    }
+    returnMaxNum(arr) {
+        let repo = [];
+        arr.forEach((item, index) => {
+            let sig = (item < 0) ? -1 : 1;
+            let num = item * sig;
+            repo.push(num);
+        });
+        const max = Math.max.apply(null, repo);
+        const maxIndex = repo.indexOf(max);
+        return arr[maxIndex];
+    }
+    getGreaterForce(arr1, arr2, omega = 1) {
+        return arr1.map((item, index) => {
+            const current = arr2[index];
+            if (item.force * omega > current.force) {
+                item.colForce = item.force * omega;
+                return item;
+            }
+            else {
+                current.colForce = current.force;
+                return current;
+            }
+        });
     }
 }
 exports.Utils = Utils;

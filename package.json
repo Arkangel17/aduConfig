@@ -4,7 +4,7 @@
   "description": "ADU Configurator",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build-ts && node dist/index.js",
+    "start": "npm run build-ts && nodemon dist/index.js",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "gulp": "gulp",
@@ -37,13 +37,13 @@
     "path": "^0.12.7",
     "tsify": "^4.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.1"
+    "webpack-cli": "^3.3.8"
   },
   "devDependencies": {
     "ts-loader": "^6.1.0",
     "typescript": "^3.6.3",
+    "webpack": "^4.42.0",
+    "webpack-dev-server": "^3.10.3",
     "webpack-stream": "^5.2.1"
   }
 }

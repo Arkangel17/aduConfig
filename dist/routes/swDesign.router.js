@@ -8,13 +8,22 @@ class SwDesignRouter {
         this.init();
     }
     getResults(req, res, next) {
-        const defaultInput = {};
+        const defaultInput = {
+            avgHt: 10.58,
+            length: 5.42,
+            maxOpeningHeight: null,
+            sheathing: "STRUCT1",
+            dblSided: "TRUE",
+            sheathingThickness: "3/8",
+            nailingType: "6d",
+            edgeNailing: "6"
+        };
         const inputs = (Object.keys(req.body).length === 0) ? defaultInput : req.body;
         const process = new swDesign_1.default(inputs);
-        res.send({ results: process.calc });
+        res.send({ results: process.calc() });
     }
     init() {
-        this.router.post('/swdesign', this.getResults);
+        this.router.post('/', this.getResults);
     }
 }
 exports.SwDesignRouter = SwDesignRouter;

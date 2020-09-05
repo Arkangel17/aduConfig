@@ -7,7 +7,10 @@ import * as path from "path";
 import SwDesignRouter from "./routes/swDesign.router";
 import RoofLiveLoadRouter from "./routes/roofLiveLoad.router";
 import StructApisRouter from "./routes/structApis.router";
-
+import ELFFPXRouter from "./routes/ELFFPX.router";
+import SeismicMassRouter from "./routes/seismicMass.router";
+import SnowLoadRouter from "./routes/snowLoad.router";
+import FlexLFDRouter from "./routes/flexLFD.router";
 
 class App {
 
@@ -45,12 +48,17 @@ class App {
             res.sendFile(path.join(__dirname, '/views/index/index.html'));  
         });
 
-        this.express.use('/', router);
+        // this.express.use('/', router);
 
         //Api routes....
         this.express.use('/swDesign', SwDesignRouter);
         this.express.use('/roofLiveLoad', RoofLiveLoadRouter);  
         this.express.use('/structApis', StructApisRouter);
+        this.express.use('/elffpx', ELFFPXRouter);
+        this.express.use('/seismicMass', SeismicMassRouter);
+        this.express.use('/snowLoad', SnowLoadRouter);
+        this.express.use('/flexLFD', FlexLFDRouter);
+
     }
 }
 

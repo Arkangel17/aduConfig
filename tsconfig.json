@@ -16,7 +16,7 @@
   ],
   "include": [
     "src/**/*.ts",
-    "**/*.d.ts"
+    "**/*.d.ts", "my-app/src/temp.ts", "src/controllers/bldgTypeSpecMeths"
   ],
   "compileOnSave": true
 }

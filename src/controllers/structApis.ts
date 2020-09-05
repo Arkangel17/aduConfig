@@ -9,13 +9,12 @@ class StructAPIs {
     public usgsUrlBase: string = `https://earthquake.usgs.gov/ws/designmaps/`;
     public geoCodeURL: string = `https://maps.googleapis.com/maps/api/geocode/json?`;
     public medeekApiURL: string = `http://design.medeek.com/resources/medeekapi.pl?`;
-    public formValues: any = {};
     public results: any = {};
     public googleApiKey: string;
     public medeekApiKey: string;
     public usgsURL: string;
    
-    constructor(formValues: any){
+    constructor(public formValues: any){
         this.formValues = formValues;          
         this.googleApiKey = ApiKeys.usgsSeisAPI;   
         this.medeekApiKey = ApiKeys.medeekAPI;
@@ -72,6 +71,7 @@ class StructAPIs {
                 }
             });
             latLongObj = res['data']['results'][0]['geometry']['location'];
+            console.log('latLongObj', latLongObj)
             return latLongObj;
         }catch(err){
             console.log(`getLatLongFromAddressError`, err);

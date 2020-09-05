@@ -14,10 +14,10 @@ const axios_1 = require("axios");
 const apiKeys_1 = require("../apiKeys");
 class StructAPIs {
     constructor(formValues) {
+        this.formValues = formValues;
         this.usgsUrlBase = `https://earthquake.usgs.gov/ws/designmaps/`;
         this.geoCodeURL = `https://maps.googleapis.com/maps/api/geocode/json?`;
         this.medeekApiURL = `http://design.medeek.com/resources/medeekapi.pl?`;
-        this.formValues = {};
         this.results = {};
         this.calc = () => __awaiter(this, void 0, void 0, function* () {
             return this.getLatLongFromAddress(this.geoCodeURL, this.formValues, this.googleApiKey)
@@ -66,6 +66,7 @@ class StructAPIs {
                     }
                 });
                 latLongObj = res['data']['results'][0]['geometry']['location'];
+                console.log('latLongObj', latLongObj);
                 return latLongObj;
             }
             catch (err) {

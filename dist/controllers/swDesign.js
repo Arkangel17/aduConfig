@@ -1,68 +1,44 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const aduConfigLibrary_1 = require("./aduConfigLibrary");
-class NdsShearWallCalc {
+const simpHrdwreLib_1 = require("../model/simpHrdwreLib");
+const ndsEqns_1 = require("../model/ndsEqns");
+class swDesignWd {
     constructor(inputs) {
-        this.results = {};
-        this.inputs = {};
-        this.aduConfig = {};
         this.inputs = inputs;
-        this.aduConfig = new aduConfigLibrary_1.default();
+        this.results = {};
+        this.aduConfig = {};
+        this.ndsEqns = {};
+        this.inputs = inputs;
+        this.aduConfig = new simpHrdwreLib_1.default();
+        this.ndsEqns = new ndsEqns_1.default();
     }
     calc() {
         const inputs = this.inputs;
         const aduConfig = this.aduConfig;
-        let res;
-        let summaryFlex = inputs.lfd.summaryFlex;
-        let totalSwLensCfaXPerpSeis = this.getTotalSwLen(inputs.UXWallSkus.y, summaryFlex.seisFlexWallLenY);
-        let totalSwLensCfaXPerpWind = this.getTotalSwLen(inputs.UXWallSkus.y, summaryFlex.seisFlexWallLenY);
-        let totalSwLensCfaYPerpSeis = this.getTotalSwLen(inputs.UXWallSkus.x, summaryFlex.seisFlexWallLenX);
-        let totalSwLensCfaYPerpWind = this.getTotalSwLen(inputs.UXWallSkus.x, summaryFlex.windFlexWallLenX);
-        let getUnitShearCfaXPerpSeis = this.getUnitShear(totalSwLensCfaXPerpSeis);
-        let getUnitShearCfaXPerpWind = this.getUnitShear(totalSwLensCfaXPerpWind);
-        let getUnitShearCfaYPerpSeis = this.getUnitShear(totalSwLensCfaYPerpSeis);
-        let getUnitShearCfaYPerpWind = this.getUnitShear(totalSwLensCfaYPerpWind);
-        let getCfaSwTypeXPerpSeis = this.getSwConfig(getUnitShearCfaXPerpSeis, aduConfig.shearWallCaps);
-        let getCfaSwTypeXPerpWind = this.getSwConfig(getUnitShearCfaXPerpWind, aduConfig.shearWallCaps);
-        let getCfaSwTypeYPerpSeis = this.getSwConfig(getUnitShearCfaYPerpSeis, aduConfig.shearWallCaps);
-        let getCfaSwTypeYPerpWind = this.getSwConfig(getUnitShearCfaYPerpWind, aduConfig.shearWallCaps);
-        let getDeflUnitShearPlfXPerpSeis = this.wdSwStiffness(getCfaSwTypeXPerpSeis, inputs);
-        let getDeflUnitShearPlfXPerpWind = this.wdSwStiffness(getCfaSwTypeXPerpWind, inputs);
-        let getDeflUnitShearPlfYPerpSeis = this.wdSwStiffness(getCfaSwTypeYPerpSeis, inputs);
-        let getDeflUnitShearPlfYPerpWind = this.wdSwStiffness(getCfaSwTypeYPerpWind, inputs);
-        let strDeflSwConfigXPerpSeis = this.getSwConfig(getDeflUnitShearPlfXPerpSeis, aduConfig.shearWallCaps);
-        let strDeflSwConfigXPerpWind = this.getSwConfig(getDeflUnitShearPlfXPerpWind, aduConfig.shearWallCaps);
-        let strDeflSwConfigYPerpSeis = this.getSwConfig(getDeflUnitShearPlfYPerpSeis, aduConfig.shearWallCaps);
-        let strDeflSwConfigYPerpWind = this.getSwConfig(getDeflUnitShearPlfYPerpWind, aduConfig.shearWallCaps);
-        let swTypeCntrlYPerpSeis = this.getSwTypeCntrl(strDeflSwConfigYPerpSeis);
-        let swTypeCntrlYPerpWind = this.getSwTypeCntrl(strDeflSwConfigYPerpWind);
-        let swTypeCntrlXPerpSeis = this.getSwTypeCntrl(strDeflSwConfigXPerpSeis);
-        let swTypeCntrlXPerpWind = this.getSwTypeCntrl(strDeflSwConfigXPerpWind);
-        let finalSwConfigXPerp = this.getFinalSwConfig(swTypeCntrlXPerpSeis, swTypeCntrlXPerpWind);
-        let finalSwConfigYPerp = this.getFinalSwConfig(swTypeCntrlYPerpSeis, swTypeCntrlYPerpWind);
-        const yShearWalls = this.getHduConfig(finalSwConfigXPerp, aduConfig.hduCaps);
-        const xShearWalls = this.getHduConfig(finalSwConfigYPerp, aduConfig.hduCaps);
-        res = {
-            yShearWalls,
-            yShearWallsCFA: this.cfaShearWallResults(yShearWalls),
-            xShearWalls,
-            xShearWallsCFA: this.cfaShearWallResults(xShearWalls),
-        };
-        return res;
+        const ndsEqns = this.ndsEqns;
+        let results = this.results;
+        return results;
     }
     getTotalSwLen(arr, arr2) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         let swLens = {};
         let totalForce;
         let forceType;
         let newArr = arr.map((item) => {
             let length = (item.xLength) ? item.xLength : item.yLength;
-            //per NDS 4.3.6.4.1.1 perWallCo should be applied to sw length
-            //per NDS 4.3.4.2 aspectRatioFtr should be applied to nom. SW capcty
-            let lengthEff = length * item.perfWallCo * item.aspectRatioFtr;
+            let perfWallCoFtr = this.ndsEqns.perfSwAspectRatioFtr(item);
+            let aspectRatioFtr = this.ndsEqns.swAspectRatioFtr(item);
+            let lengthEff = length * perfWallCoFtr * aspectRatioFtr;
             swLens[item.coord] = swLens[item.coord] + lengthEff || lengthEff;
             let newItem = {};
             Object.assign(newItem, item);
             newItem['lengthEff'] = lengthEff;
+            newItem['perfWallCoFtr'] = perfWallCoFtr;
+            newItem['aspectRatioFtr'] = aspectRatioFtr;
             return newItem;
         });
         const rest = newArr.map((item) => {
@@ -83,6 +59,11 @@ class NdsShearWallCalc {
         return rest;
     }
     getUnitShear(arr) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         let forceRatio;
         let swForce;
         let unitShearPlf;
@@ -99,6 +80,11 @@ class NdsShearWallCalc {
         return arr;
     }
     getSwConfig(arr, obj) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         arr.map((item) => {
             let unitShearStr;
             let unitShearDefl;
@@ -142,6 +128,11 @@ class NdsShearWallCalc {
         return arr;
     }
     wdSwStiffness(arr, inputs) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         let hdPostDeflConst = {
             elastModulus: 1600000,
             Area: 30.25,
@@ -193,6 +184,11 @@ class NdsShearWallCalc {
     }
     ;
     getSwTypeCntrl(arr) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         arr.map((item) => {
             let swTypeCntrl = (item.strCfaSwConfig.value > item.deflCfaSwConfig.value)
                 ? item.strCfaSwConfig : item.deflCfaSwConfig;
@@ -203,6 +199,11 @@ class NdsShearWallCalc {
         return arr;
     }
     getFinalSwConfig(arr, arr1) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         let resArr = [];
         arr.map((item, index) => {
             if (item.swTypeCntrl.value > arr1[index].swTypeCntrl.value) {
@@ -215,6 +216,11 @@ class NdsShearWallCalc {
         return resArr;
     }
     getHduConfig(arr, obj) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         let hdu;
         arr.map((item) => {
             let hduCapcity;
@@ -234,6 +240,11 @@ class NdsShearWallCalc {
         return arr;
     }
     cfaShearWallResults(arr) {
+        /**
+        * @desc updates inputs object values accoring to types
+        * @param object input:object, flat?: boolean
+        * @return object - inputs with serialize values
+        */
         let res = {};
         arr.map((item) => {
             res[item.cfaWebID] = {
@@ -243,5 +254,5 @@ class NdsShearWallCalc {
         return res;
     }
 }
-exports.NdsShearWallCalc = NdsShearWallCalc;
-exports.default = NdsShearWallCalc;
+exports.swDesignWd = swDesignWd;
+exports.default = swDesignWd;

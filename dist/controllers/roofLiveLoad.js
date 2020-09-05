@@ -1,7 +1,10 @@
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
 class RoofLiveLoad {
+    // instance variables
     constructor(areaTrib, rise) {
+        this.areaTrib = areaTrib;
+        this.rise = rise;
         this.areaTrib = areaTrib;
         this.rise = rise;
     }

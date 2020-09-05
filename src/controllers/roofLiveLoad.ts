@@ -1,12 +1,10 @@
 'use strict'
 
 class RoofLiveLoad {
-    // set parameters for the constructor + class
-    public areaTrib: number;
-    public rise: number;
+    // class variable 
     public results: any;
-
-    constructor( areaTrib: number, rise: number ) {
+    // instance variables
+    constructor( public areaTrib: number, public rise: number ) {
       this.areaTrib = areaTrib;
       this.rise = rise;
     }

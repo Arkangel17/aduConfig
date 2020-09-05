@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import RoofLiveLoad from "../controllers/roofLiveLoad";
 
 
-export class roofLiveLoadRouter {
+export class RoofLiveLoadRouter {
     router: Router;
 
     constructor() {
@@ -17,21 +17,20 @@ export class roofLiveLoadRouter {
             rise: 5
         }
 
-        const inputs = ( Object.keys(req.body).length === 0 ) ? defaults : req.body;
+        const input = ( Object.keys(req.body).length === 0 ) ? defaults : req.body;
 
-        const process = new RoofLiveLoad( defaults.areaTrib, defaults.rise);
-
-        res.send({ results: process.calc });
+        const process = new RoofLiveLoad( input.areaTrib, input.rise);
+        
+        res.send({ results: process.calc() });
     }
 
-
     public init() {
-        this.router.post('/liveload', this.getResults)
+        this.router.post('/', this.getResults);
     }
 
 }
 
-const roofLiveLoad = new roofLiveLoadRouter();
+const roofLiveLoad = new RoofLiveLoadRouter();
 roofLiveLoad.init();
 
 export default roofLiveLoad.router;

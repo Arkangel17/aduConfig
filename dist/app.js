@@ -7,6 +7,10 @@ const path = require("path");
 const swDesign_router_1 = require("./routes/swDesign.router");
 const roofLiveLoad_router_1 = require("./routes/roofLiveLoad.router");
 const structApis_router_1 = require("./routes/structApis.router");
+const ELFFPX_router_1 = require("./routes/ELFFPX.router");
+const seismicMass_router_1 = require("./routes/seismicMass.router");
+const snowLoad_router_1 = require("./routes/snowLoad.router");
+const flexLFD_router_1 = require("./routes/flexLFD.router");
 class App {
     constructor() {
         this.express = express();
@@ -34,11 +38,15 @@ class App {
         router.get('/', (req, res, next) => {
             res.sendFile(path.join(__dirname, '/views/index/index.html'));
         });
-        this.express.use('/', router);
+        // this.express.use('/', router);
         //Api routes....
         this.express.use('/swDesign', swDesign_router_1.default);
         this.express.use('/roofLiveLoad', roofLiveLoad_router_1.default);
         this.express.use('/structApis', structApis_router_1.default);
+        this.express.use('/elffpx', ELFFPX_router_1.default);
+        this.express.use('/seismicMass', seismicMass_router_1.default);
+        this.express.use('/snowLoad', snowLoad_router_1.default);
+        this.express.use('/flexLFD', flexLFD_router_1.default);
     }
 }
 exports.default = new App().express;
